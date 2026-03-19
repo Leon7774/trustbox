@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 2000 2000">
+  <defs>
+    <style>
+      .cls-1 {
+        clip-path: url(#clippath-6);
+      }
+
+      .cls-2 {
+        clip-path: url(#clippath-4);
+      }
+
+      .cls-3 {
+        fill: none;
+      }
+
+      .cls-4 {
+        clip-path: url(#clippath-1);
+      }
+
+      .cls-5 {
+        clip-path: url(#clippath-5);
+      }
+
+      .cls-6 {
+        clip-path: url(#clippath-3);
+      }
+
+      .cls-7 {
+        fill: #c1ff72;
+      }
+
+      .cls-8 {
+        clip-path: url(#clippath-2);
+      }
+
+      .cls-9 {
+        clip-path: url(#clippath);
+      }
+    </style>
+    <clipPath id="clippath">
+      <rect class="cls-3" x="0" width="2000" height="2000"/>
+    </clipPath>
+    <clipPath id="clippath-1">
+      <rect class="cls-3" x="-1.28" y="-2.94" width="2005.89" height="2005.89"/>
+    </clipPath>
+    <clipPath id="clippath-2">
+      <rect class="cls-3" x="0" width="2000" height="2000"/>
+    </clipPath>
+    <clipPath id="clippath-3">
+      <rect class="cls-3" x="547.16" y="550.2" width="905.69" height="899.61"/>
+    </clipPath>
+    <clipPath id="clippath-4">
+      <polygon class="cls-3" points="244.61 993.21 1005.37 232.46 1769.36 996.44 1008.6 1757.22 244.61 993.21"/>
+    </clipPath>
+    <clipPath id="clippath-5">
+      <polygon class="cls-3" points="244.61 993.21 1005.37 232.46 1769.36 996.44 1008.6 1757.22 244.61 993.21"/>
+    </clipPath>
+    <clipPath id="clippath-6">
+      <polygon class="cls-3" points="244.61 993.21 1005.37 232.46 1769.36 996.44 1008.6 1757.22 244.61 993.21"/>
+    </clipPath>
+  </defs>
+  <g class="cls-9">
+    <g class="cls-4">
+      <g class="cls-8">
+        <path class="cls-7" d="M0,0h2000v2000H0V0h0Z"/>
+      </g>
+    </g>
+  </g>
+  <g class="cls-6">
+    <g class="cls-2">
+      <g class="cls-5">
+        <g class="cls-1">
+          <path d="M1449.81,677.59c-197.98,362.17-86.64,557.13-2.68,641.11l-130.5,130.47c-67.58-67.58-183.52-222.98-158.37-474.81l-465.97,466-130.84-130.81,466-466c-251.83,25.14-407.23-90.8-474.81-158.37l130.5-130.5c83.98,83.98,278.94,195.32,641.09-2.66l125.58,125.57Z"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
