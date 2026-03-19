@@ -62,7 +62,7 @@ export default function AssessmentForm() {
   const handleAnswer = (questionId: string, score: number) => {
     setAnswers((prev) => ({ ...prev, [questionId]: score }));
 
-    if (step < questions.length) {
+    if (step <= questions.length) {
       setStep(step + 1);
     }
   };
@@ -210,8 +210,8 @@ export default function AssessmentForm() {
     return (
       <Card className="w-full max-w-2xl mx-auto p-4 md:p-8 flex flex-col items-center text-center animate-in zoom-in-95 fade-in duration-1000 bg-transparent border-0 shadow-none">
         <div className={`w-32 h-32 rounded-full border-8 flex items-center justify-center mb-6 shadow-[0_0_60px_-15px_currentColor] ${riskLevel === "Low" ? "border-secondary text-secondary" :
-            riskLevel === "Medium" ? "border-yellow-500 text-yellow-500" :
-              "border-red-500 text-red-500"
+          riskLevel === "Medium" ? "border-yellow-500 text-yellow-500" :
+            "border-red-500 text-red-500"
           }`}>
           <span className="text-5xl font-black">{finalScore}</span>
         </div>
