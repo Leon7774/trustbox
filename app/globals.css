@@ -3,7 +3,7 @@
 @theme {
   --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
-  
+
   --color-trust-blue: #0ea5e9;
   --color-trust-teal: #14b8a6;
   --color-trust-blue-glow: rgba(14, 165, 233, 0.5);
@@ -11,6 +11,7 @@
   --color-trust-surface: rgba(255, 255, 255, 0.03);
   --color-trust-border: rgba(255, 255, 255, 0.1);
   --color-trust-dark: #09090b;
+  --
 }
 
 :root {
@@ -19,7 +20,7 @@
 
 body {
   background-color: var(--color-trust-dark);
-  background-image: 
+  background-image:
     radial-gradient(ellipse at 10% 5%, rgba(14, 165, 233, 0.15) 0%, transparent 40%),
     radial-gradient(ellipse at 90% 95%, rgba(20, 184, 166, 0.15) 0%, transparent 40%);
   background-attachment: fixed;
