@@ -20,8 +20,8 @@ export default function PasswordChecker() {
     "bg-red-500",    // 0: Very Weak
     "bg-orange-500", // 1: Weak
     "bg-yellow-500", // 2: Fair
-    "bg-trust-teal", // 3: Strong
-    "bg-trust-blue", // 4: Very Strong
+    "bg-secondary", // 3: Strong
+    "bg-primary", // 4: Very Strong
   ];
 
   const scoreLabels = ["Very Weak", "Weak", "Fair", "Strong", "Very Strong"];
@@ -41,7 +41,7 @@ export default function PasswordChecker() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Type a password to test..."
-          className="w-full bg-trust-dark/50 border border-trust-border rounded-xl px-4 py-4 text-lg text-white focus:outline-none focus:ring-2 focus:ring-trust-teal/50 focus:border-trust-teal transition-all"
+          className="w-full bg-background/50 border border-border rounded-xl px-4 py-4 text-lg text-white focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:border-secondary transition-all"
         />
         <div className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm">
           {password.length} chars
@@ -54,11 +54,11 @@ export default function PasswordChecker() {
           <div className="space-y-2">
             <div className="flex justify-between items-end">
               <span className="text-white font-medium text-lg">Overall Strength</span>
-              <span className={`font-semibold ${result.score >= 3 ? "text-trust-teal" : "text-orange-400"}`}>
+              <span className={`font-semibold ${result.score >= 3 ? "text-secondary" : "text-orange-400"}`}>
                 {scoreLabels[result.score]}
               </span>
             </div>
-            <div className="h-3 w-full bg-trust-dark rounded-full overflow-hidden flex gap-1">
+            <div className="h-3 w-full bg-background rounded-full overflow-hidden flex gap-1">
               {[0, 1, 2, 3].map((segment) => (
                 <div
                   key={segment}
@@ -74,9 +74,9 @@ export default function PasswordChecker() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Feedback details */}
-            <div className="bg-trust-dark/30 rounded-lg p-5 border border-trust-border/50">
+            <div className="bg-background/30 rounded-lg p-5 border border-border/50">
               <h3 className="text-white text-sm font-semibold mb-4 flex items-center gap-2">
-                <Info className="w-4 h-4 text-trust-blue" />
+                <Info className="w-4 h-4 text-primary" />
                 Analysis Feedback
               </h3>
               {result.feedback.warning ? (
@@ -85,7 +85,7 @@ export default function PasswordChecker() {
                   <p>{result.feedback.warning}</p>
                 </div>
               ) : (
-                <div className="flex items-start gap-2 text-trust-teal text-sm mb-3">
+                <div className="flex items-start gap-2 text-secondary text-sm mb-3">
                   <ShieldCheck className="w-4 h-4 mt-0.5 shrink-0" />
                   <p>No major vulnerabilities detected in patterns.</p>
                 </div>
@@ -103,34 +103,34 @@ export default function PasswordChecker() {
             </div>
 
             {/* Constraints Checklist */}
-            <div className="bg-trust-dark/30 rounded-lg p-5 border border-trust-border/50">
+            <div className="bg-background/30 rounded-lg p-5 border border-border/50">
               <h3 className="text-white text-sm font-semibold mb-4">Composition Metrics</h3>
               <ul className="space-y-3">
                 <li className="flex items-center gap-3 text-sm">
-                  {lengthScore ? <Check className="w-4 h-4 text-trust-teal" /> : <X className="w-4 h-4 text-slate-600" />}
+                  {lengthScore ? <Check className="w-4 h-4 text-secondary" /> : <X className="w-4 h-4 text-slate-600" />}
                   <span className={lengthScore ? "text-slate-200" : "text-slate-500"}>12+ Characters ({password.length})</span>
                 </li>
                 <li className="flex items-center gap-3 text-sm">
-                  {hasUpper ? <Check className="w-4 h-4 text-trust-teal" /> : <X className="w-4 h-4 text-slate-600" />}
+                  {hasUpper ? <Check className="w-4 h-4 text-secondary" /> : <X className="w-4 h-4 text-slate-600" />}
                   <span className={hasUpper ? "text-slate-200" : "text-slate-500"}>Uppercase Letter</span>
                 </li>
                 <li className="flex items-center gap-3 text-sm">
-                  {hasLower ? <Check className="w-4 h-4 text-trust-teal" /> : <X className="w-4 h-4 text-slate-600" />}
+                  {hasLower ? <Check className="w-4 h-4 text-secondary" /> : <X className="w-4 h-4 text-slate-600" />}
                   <span className={hasLower ? "text-slate-200" : "text-slate-500"}>Lowercase Letter</span>
                 </li>
                 <li className="flex items-center gap-3 text-sm">
-                  {hasNumber ? <Check className="w-4 h-4 text-trust-teal" /> : <X className="w-4 h-4 text-slate-600" />}
+                  {hasNumber ? <Check className="w-4 h-4 text-secondary" /> : <X className="w-4 h-4 text-slate-600" />}
                   <span className={hasNumber ? "text-slate-200" : "text-slate-500"}>Number</span>
                 </li>
                 <li className="flex items-center gap-3 text-sm">
-                  {hasSymbol ? <Check className="w-4 h-4 text-trust-teal" /> : <X className="w-4 h-4 text-slate-600" />}
+                  {hasSymbol ? <Check className="w-4 h-4 text-secondary" /> : <X className="w-4 h-4 text-slate-600" />}
                   <span className={hasSymbol ? "text-slate-200" : "text-slate-500"}>Special Character</span>
                 </li>
               </ul>
             </div>
           </div>
           
-          <div className="text-center text-xs text-slate-500 pt-4 border-t border-trust-border/50">
+          <div className="text-center text-xs text-slate-500 pt-4 border-t border-border/50">
             Estimated time to crack: <span className="text-slate-300 font-mono">{result.crack_times_display.offline_slow_hashing_1e4_per_second}</span>
           </div>
         </div>
