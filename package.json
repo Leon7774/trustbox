@@ -9,15 +9,29 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@ai-sdk/google": "^3.0.43",
+    "@supabase/supabase-js": "^2.99.2",
+    "ai": "^6.0.116",
+    "clsx": "^2.1.1",
+    "drizzle-orm": "^0.45.1",
+    "framer-motion": "^12.38.0",
+    "lucide-react": "^0.577.0",
     "next": "16.2.0",
+    "postgres": "^3.4.8",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "tailwind-merge": "^3.5.0",
+    "zod": "^4.3.6",
+    "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/zxcvbn": "^4.4.5",
+    "dotenv": "^17.3.1",
+    "drizzle-kit": "^0.31.10",
     "eslint": "^9",
     "eslint-config-next": "16.2.0",
     "tailwindcss": "^4",
