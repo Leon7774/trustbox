@@ -6,7 +6,12 @@
 
 @theme {
   --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-mono:
+    var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
+
+  --font-manrope: var(--font-manrope), ui-monospace, SFMono-Regular, monospace;
+  --font-space-grotesk: var(--font-space-grotesk), sans-serif;
+  --font-outfit: var(--font-outfit);
 
   --color-trust-blue: #0ea5e9;
   --color-trust-teal: #14b8a6;
@@ -15,6 +20,8 @@
   --color-trust-surface: rgba(255, 255, 255, 0.03);
   --color-trust-border: rgba(255, 255, 255, 0.1);
   --color-trust-dark: #09090b;
+
+  --color-brand-primary: #c1ff72;
 }
 
 :root {
@@ -56,8 +63,16 @@
 body {
   background-color: var(--color-trust-dark);
   background-image:
-    radial-gradient(ellipse at 10% 5%, rgba(14, 165, 233, 0.15) 0%, transparent 40%),
-    radial-gradient(ellipse at 90% 95%, rgba(20, 184, 166, 0.15) 0%, transparent 40%);
+    radial-gradient(
+      ellipse at 10% 5%,
+      rgba(14, 165, 233, 0.15) 0%,
+      transparent 40%
+    ),
+    radial-gradient(
+      ellipse at 90% 95%,
+      rgba(20, 184, 166, 0.15) 0%,
+      transparent 40%
+    );
   background-attachment: fixed;
   background-repeat: no-repeat;
 }
