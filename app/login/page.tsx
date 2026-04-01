@@ -35,7 +35,7 @@ export default function LoginPage() {
         <Card className="w-full max-w-[420px] relative z-10 border-trust-border/50 bg-trust-surface/80 backdrop-blur-2xl shadow-2xl p-2 sm:p-4">
           <CardHeader className="space-y-2 text-center pb-6">
             <CardTitle className="text-2xl font-semibold tracking-tight text-white">
-              Welcome Back
+              Welcome Back Otin Lubot
             </CardTitle>
             <CardDescription className="text-slate-400">
               Enter your credentials to access your account
