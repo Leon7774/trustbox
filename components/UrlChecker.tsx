@@ -18,21 +18,23 @@ export default function UrlChecker() {
   const [url, setUrl] = useState("");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysis, setAnalysis] = useState<UrlAnalysis | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const analyzeUrl = (inputUrl: string) => {
+  const analyzeUrl = async (inputUrl: string) => {
     setIsAnalyzing(true);
     setAnalysis(null);
+    setError(null);
 
-    // Simulate network delay for effect
-    setTimeout(() => {
+    try {
       let parsedUrl: URL;
       try {
         // Prepend https if no protocol
         const toParse = inputUrl.match(/^https?:\/\//) ? inputUrl : `https://${inputUrl}`;
         parsedUrl = new URL(toParse);
       } catch (e) {
+        setError("Please enter a valid URL.");
         setIsAnalyzing(false);
-        return; // Invalid URL
+        return;
       }
 
       const domain = parsedUrl.hostname;
@@ -45,12 +47,33 @@ export default function UrlChecker() {
       const shorteners = ["bit.ly", "t.co", "tinyurl", "ow.ly", "is.gd"];
       const isShortened = shorteners.some(sh => domain.includes(sh));
 
+      // --- API CALL START ---
+      // In a real app, call your own backend API route to hide your API keys (e.g., VirusTotal or Google Safe Browsing)
+      const response = await fetch("/api/check-url", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: parsedUrl.href }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to reach the analysis server.");
+      }
+
+      const apiResult = await response.json();
+      // Assume your API returns { isMalicious: boolean, threatScore: number }
+      // --- API CALL END ---
+
+      // Calculate score combining local heuristics and API results
       let score = 100;
-      if (!isHttps) score -= 40;
-      if (hasIpAddress) score -= 50;
-      if (hasSuspiciousKeywords) score -= 30;
-      if (isShortened) score -= 20;
-      if (domain.length > 30) score -= 15;
+      if (!isHttps) score -= 20;
+      if (hasIpAddress) score -= 30;
+      if (hasSuspiciousKeywords) score -= 20;
+      if (isShortened) score -= 10;
+      if (domain.length > 30) score -= 5;
+      
+      // Heavily penalize if the external API flagged it
+      if (apiResult.isMalicious) score -= 80;
+      if (apiResult.threatScore > 0) score -= apiResult.threatScore;
 
       score = Math.max(0, score);
       
@@ -69,8 +92,11 @@ export default function UrlChecker() {
         mockReputation,
         score
       });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "An unexpected error occurred.");
+    } finally {
       setIsAnalyzing(false);
-    }, 1500);
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -81,29 +107,32 @@ export default function UrlChecker() {
 
   return (
     <div className="w-full flex flex-col gap-6">
-      <div className="relative flex items-center">
-        <div className="absolute left-4 text-slate-500">
-          <LinkIcon className="w-5 h-5" />
+      <div className="relative flex flex-col gap-2">
+        <div className="relative flex items-center">
+          <div className="absolute left-4 text-slate-500">
+            <LinkIcon className="w-5 h-5" />
+          </div>
+          <input
+            type="text"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="Enter a URL (e.g., example.com)"
+            className="w-full bg-background/50 border border-border rounded-xl pl-12 pr-32 py-4 text-lg text-white focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all font-mono"
+          />
+          <button
+            onClick={() => url && analyzeUrl(url)}
+            disabled={!url || isAnalyzing}
+            className="absolute right-2 px-6 py-2 bg-accent-dark hover:bg-accent text-white rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+          >
+            {isAnalyzing ? (
+              <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+            ) : (
+              <span>Scan</span>
+            )}
+          </button>
         </div>
-        <input
-          type="text"
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder="Enter a URL (e.g., example.com)"
-          className="w-full bg-background/50 border border-border rounded-xl pl-12 pr-32 py-4 text-lg text-white focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all font-mono"
-        />
-        <button
-          onClick={() => url && analyzeUrl(url)}
-          disabled={!url || isAnalyzing}
-          className="absolute right-2 px-6 py-2 bg-accent-dark hover:bg-accent text-white rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
-        >
-          {isAnalyzing ? (
-            <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-          ) : (
-            <span>Scan</span>
-          )}
-        </button>
+        {error && <p className="text-red-400 text-sm pl-2">{error}</p>}
       </div>
 
       {analysis && (
