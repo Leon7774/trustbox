@@ -1,10 +1,24 @@
 "use client";
 
 import { useState } from "react";
-import { ShieldCheck, ArrowRight, CheckCircle2, ChevronRight, Activity, Zap } from "lucide-react";
+import {
+  ShieldCheck,
+  ArrowRight,
+  CheckCircle2,
+  ChevronRight,
+  Activity,
+  Zap,
+} from "lucide-react";
 import { submitAssessmentAction } from "@/app/actions/assessment";
 import zxcvbn from "zxcvbn";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -54,7 +68,9 @@ export default function AssessmentForm() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [finalScore, setFinalScore] = useState(0);
-  const [riskLevel, setRiskLevel] = useState<"Low" | "Medium" | "High">("Medium");
+  const [riskLevel, setRiskLevel] = useState<"Low" | "Medium" | "High">(
+    "Medium",
+  );
   const [aiGuidance, setAiGuidance] = useState("");
 
   const [testPassword, setTestPassword] = useState("");
@@ -71,7 +87,9 @@ export default function AssessmentForm() {
     setIsSubmitting(true);
     setStep(5);
 
-    const bScore = Object.values(answers).reduce((acc, curr) => acc + curr, 0) / questions.length;
+    const bScore =
+      Object.values(answers).reduce((acc, curr) => acc + curr, 0) /
+      questions.length;
     const pwResult = zxcvbn(testPassword);
     const pScore = (pwResult.score / 4) * 100;
     const uScore = answers["q2"] || 50;
@@ -80,7 +98,10 @@ export default function AssessmentForm() {
     setPasswordScore(pScore);
     setUrlScore(uScore);
 
-    const tScore = Math.min(100, Math.round((bScore * 0.4) + (pScore * 0.3) + (uScore * 0.3)));
+    const tScore = Math.min(
+      100,
+      Math.round(bScore * 0.4 + pScore * 0.3 + uScore * 0.3),
+    );
     setFinalScore(tScore);
 
     let risk: "Low" | "Medium" | "High" = "High";
@@ -101,7 +122,9 @@ export default function AssessmentForm() {
     if (res.success && res.recommendations) {
       setAiGuidance(res.recommendations);
     } else {
-      setAiGuidance("- Enable Multi-Factor Authentication immediately.\n- Adopt a dedicated password manager.\n- Hover and inspect URLs thoroughly before clicking.");
+      setAiGuidance(
+        "- Enable Multi-Factor Authentication immediately.\n- Adopt a dedicated password manager.\n- Hover and inspect URLs thoroughly before clicking.",
+      );
     }
 
     setIsSubmitting(false);
@@ -114,14 +137,17 @@ export default function AssessmentForm() {
         <div className="w-20 h-20 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center mb-6">
           <Activity className="w-10 h-10 text-primary" />
         </div>
-        <CardTitle className="text-3xl font-bold text-white mb-4">Discover Your Risk Profile</CardTitle>
+        <CardTitle className="text-3xl font-bold text-white mb-4">
+          Discover Your Risk Profile
+        </CardTitle>
         <CardDescription className="text-slate-400 mb-8 max-w-md mx-auto text-base">
-          Answer a few behavioral questions and test your daily password. TrustBox will calculate your Personal Cyber Risk Score.
+          Answer a few behavioral questions and test your daily password.
+          TrustBox will calculate your Personal Cyber Risk Score.
         </CardDescription>
         <Button
           size="lg"
           onClick={() => setStep(1)}
-          className="group rounded-full bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 transition-all hover:shadow-[0_0_20px_rgba(14,165,233,0.4)]"
+          className="hover:cursor-pointer group rounded-full bg-brand-primary text-black hover:from-primary/90 hover:to-secondary/90 transition-all hover:shadow-[0_0_20px_rgba(14,165,233,0.4)]"
         >
           Begin Evaluation
           <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
@@ -136,15 +162,22 @@ export default function AssessmentForm() {
       <Card className="w-full max-w-2xl mx-auto shadow-xl animate-in slide-in-from-right-8 fade-in duration-500">
         <CardHeader>
           <div className="flex justify-between items-center mb-4">
-            <span className="text-secondary text-sm font-medium">Question {step} of {questions.length}</span>
+            <span className=" text-sm font-medium">
+              Question {step} of {questions.length}
+            </span>
             <div className="flex gap-1">
               {questions.map((_, i) => (
-                <div key={i} className={`h-1.5 w-6 rounded-full transition-colors ${i < step ? "bg-secondary" : "bg-border"}`} />
+                <div
+                  key={i}
+                  className={`h-1.5 w-6 rounded-full transition-colors ${i < step ? "bg-secondary" : "bg-border"}`}
+                />
               ))}
               <div className={`h-1.5 w-6 rounded-full bg-border`} />
             </div>
           </div>
-          <CardTitle className="text-2xl font-bold text-white leading-tight">{q.text}</CardTitle>
+          <CardTitle className="text-2xl font-bold text-white leading-tight">
+            {q.text}
+          </CardTitle>
         </CardHeader>
         <CardContent className="grid grid-cols-1 gap-3">
           {q.options.map((opt, i) => (
@@ -167,9 +200,12 @@ export default function AssessmentForm() {
     return (
       <Card className="w-full max-w-xl mx-auto shadow-xl animate-in slide-in-from-right-8 fade-in duration-500">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold mb-2">Final Step: Password Verification</CardTitle>
+          <CardTitle className="text-2xl font-bold mb-2">
+            Final Step: Password Verification
+          </CardTitle>
           <CardDescription>
-            Type the password you use most frequently. It is evaluated entirely locally to determine entropy and structure. Nothing is saved.
+            Type the password you use most frequently. It is evaluated entirely
+            locally to determine entropy and structure. Nothing is saved.
           </CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col items-center">
@@ -200,8 +236,12 @@ export default function AssessmentForm() {
     return (
       <Card className="w-full max-w-xl mx-auto py-12 flex flex-col items-center justify-center animate-in fade-in duration-500 bg-transparent border-0 shadow-none">
         <div className="w-16 h-16 border-4 border-border border-t-primary rounded-full animate-spin mb-6" />
-        <CardTitle className="text-xl font-bold mb-2">Analyzing Behavioral Metrics</CardTitle>
-        <CardDescription className="animate-pulse">Running HBM & PMT models...</CardDescription>
+        <CardTitle className="text-xl font-bold mb-2">
+          Analyzing Behavioral Metrics
+        </CardTitle>
+        <CardDescription className="animate-pulse">
+          Running HBM & PMT models...
+        </CardDescription>
       </Card>
     );
   }
@@ -209,22 +249,36 @@ export default function AssessmentForm() {
   if (step === 6) {
     return (
       <Card className="w-full max-w-2xl mx-auto p-4 md:p-8 flex flex-col items-center text-center animate-in zoom-in-95 fade-in duration-1000 bg-transparent border-0 shadow-none">
-        <div className={`w-32 h-32 rounded-full border-8 flex items-center justify-center mb-6 shadow-[0_0_60px_-15px_currentColor] ${riskLevel === "Low" ? "border-secondary text-secondary" :
-          riskLevel === "Medium" ? "border-yellow-500 text-yellow-500" :
-            "border-red-500 text-red-500"
-          }`}>
+        <div
+          className={`w-32 h-32 rounded-full border-8 flex items-center justify-center mb-6 shadow-[0_0_60px_-15px_currentColor] ${
+            riskLevel === "Low"
+              ? "border-secondary text-secondary"
+              : riskLevel === "Medium"
+                ? "border-yellow-500 text-yellow-500"
+                : "border-red-500 text-red-500"
+          }`}
+        >
           <span className="text-5xl font-black">{finalScore}</span>
         </div>
 
         <h2 className="text-3xl font-bold text-white mb-2">
-          Your Risk Level is <span className={
-            riskLevel === "Low" ? "text-secondary" :
-              riskLevel === "Medium" ? "text-yellow-500" :
-                "text-red-500"
-          }>{riskLevel}</span>
+          Your Risk Level is{" "}
+          <span
+            className={
+              riskLevel === "Low"
+                ? "text-secondary"
+                : riskLevel === "Medium"
+                  ? "text-yellow-500"
+                  : "text-red-500"
+            }
+          >
+            {riskLevel}
+          </span>
         </h2>
         <p className="text-slate-400 mb-8 max-w-lg">
-          We aggregated your Behavioral Assessment ({(behavioralScore).toFixed(0)}), Password Strength ({(passwordScore).toFixed(0)}), and URL Awareness ({(urlScore).toFixed(0)}).
+          We aggregated your Behavioral Assessment ({behavioralScore.toFixed(0)}
+          ), Password Strength ({passwordScore.toFixed(0)}), and URL Awareness (
+          {urlScore.toFixed(0)}).
         </p>
 
         <Card className="w-full text-left mb-6 shadow-xl bg-surface">
@@ -236,12 +290,21 @@ export default function AssessmentForm() {
           </CardHeader>
           <CardContent>
             <div className="prose prose-invert prose-p:text-slate-300 prose-li:text-slate-300 max-w-none text-sm space-y-2">
-              {aiGuidance.split('\n').filter(Boolean).map((line, i) => (
-                <div key={i} className="flex items-start gap-3 fade-in slide-in-from-bottom-2 animate-in fill-mode-both" style={{ animationDelay: `${i * 150}ms` }}>
-                  <CheckCircle2 className="w-4 h-4 text-secondary mt-0.5 shrink-0" />
-                  <span className="leading-relaxed text-gray-300">{line.replace(/^[-*]\s*/, '')}</span>
-                </div>
-              ))}
+              {aiGuidance
+                .split("\n")
+                .filter(Boolean)
+                .map((line, i) => (
+                  <div
+                    key={i}
+                    className="flex items-start gap-3 fade-in slide-in-from-bottom-2 animate-in fill-mode-both"
+                    style={{ animationDelay: `${i * 150}ms` }}
+                  >
+                    <CheckCircle2 className="w-4 h-4 text-secondary mt-0.5 shrink-0" />
+                    <span className="leading-relaxed text-gray-300">
+                      {line.replace(/^[-*]\s*/, "")}
+                    </span>
+                  </div>
+                ))}
             </div>
           </CardContent>
         </Card>
