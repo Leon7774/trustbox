@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import LoginCard from "./_components/login-section/LoginCard";
 import BackGroundVideo from "./_components/login-section/BackgroundVideo";
 import HeroSection from "./_components/hero-section/HeroSection";
+import Footer from "./_components/footer/Footer";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -18,6 +19,9 @@ export default function LoginPage() {
 
       {/* Hero Section */}
       <HeroSection />
+
+      {/* Footer */}
+      <Footer />
     </>
   );
 }

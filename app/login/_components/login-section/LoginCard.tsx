@@ -32,7 +32,10 @@ export default function LoginCard() {
   };
 
   return (
-    <div className="inset-x-0 h-[calc(100vh-64px)] flex flex-col lg:flex-row items-center justify-start relative overflow-hidden">
+    <div
+      id="login-section"
+      className="inset-x-0 h-[calc(100vh-64px)] flex flex-col lg:flex-row items-center justify-start relative overflow-hidden"
+    >
       <div className="flex flex-col lg:flex-row w-full justify-center lg:pb-20">
         {/* Left Card */}
         <Card className="w-full max-w-[320px] rounded-tr-none flex-col lg:rounded-br-none relative z-10 border-trust-border/50 border-r-0 bg-background/90 shadow-2xl p-2 sm:p-4 lg:p-10 flex items-center">
