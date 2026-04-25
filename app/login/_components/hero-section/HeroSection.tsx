@@ -39,7 +39,7 @@ export default function HeroSection({ propName }: HeroSectionProps) {
           title="Password Strength Checker"
         ></HeroCard>
         <HeroCard
-          icon={<LinkIcon />}
+          icon={<LinkIcon size={40} color="#50e0f9" />}
           description=" Real-time link scanning and suspicious pattern detection to neutralize phishing attempts and malicious redirects instantly."
           title="URL Safety Analyzer"
         ></HeroCard>
@@ -102,7 +102,7 @@ export default function HeroSection({ propName }: HeroSectionProps) {
         </div>
       </div>
       <div className=" w-full py-80 flex items-center justify-center flex-col bg-black/20 gap-8 rounded-4xl">
-        <h2 className="text-8xl font-black">
+        <h2 className="text-7xl font-black">
           Your Security is{" "}
           <span className="text-trust-blue">in your hands</span>.
         </h2>
