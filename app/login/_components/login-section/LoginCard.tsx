@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardDescription,
@@ -5,7 +7,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { TypeAnimation } from "react-type-animation";
-
 import LoginForm from "./LoginForm";
 
 export default function LoginCard() {
@@ -16,7 +17,7 @@ export default function LoginCard() {
     >
       <div className="flex flex-col lg:flex-row w-full justify-center lg:pb-20">
         {/* Left Card */}
-        <Card className="w-full max-w-[320px] rounded-tr-none flex-col lg:rounded-br-none relative z-10 border-trust-border/50 border-r-0 bg-background/90 shadow-2xl p-2 sm:p-4 lg:p-10 flex items-center">
+        <Card className="w-full max-w-92 rounded-tr-none flex-col lg:rounded-br-none relative z-10 border-trust-border/50 border-r-0 bg-background/90 shadow-2xl p-2 sm:p-4 lg:p-10 flex items-center">
           <TypeAnimation
             sequence={[
               "Secure your digital life.",
@@ -38,7 +39,7 @@ export default function LoginCard() {
         </Card>
 
         {/* Right Card */}
-        <Card className="w-full max-w-200 rounded-tl-none rounded-bl-none relative z-10 border-trust-border/50 border-l-0 bg-trust-surface/80 backdrop-blur-2xl shadow-2xl p-2 sm:p-4">
+        <Card className="w-full max-w-140 rounded-tl-none rounded-bl-none relative z-10 border-trust-border/50 border-l-0 bg-trust-surface/80 backdrop-blur-2xl shadow-2xl p-2 sm:p-4">
           <CardHeader className="space-y-2 text-center pb-6">
             <CardTitle className="text-2xl font-semibold tracking-tight text-white">
               Welcome Back
