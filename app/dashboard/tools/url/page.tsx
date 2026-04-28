@@ -1,5 +1,5 @@
 import { Link as LinkIcon } from "lucide-react";
-import UrlChecker from "@/app/tools/url/components/UrlChecker";
+import UrlChecker from "@/app/dashboard/tools/url/components/UrlChecker";
 import Link from "next/link";
 
 export default function UrlCheckerPage() {

@@ -1,5 +1,5 @@
 import { Key } from "lucide-react";
-import PasswordChecker from "@/app/tools/password/components/PasswordChecker";
+import PasswordChecker from "@/app/dashboard/tools/password/components/PasswordChecker";
 import Link from "next/link";
 
 export default function PasswordCheckerPage() {

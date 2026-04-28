@@ -1,5 +1,5 @@
 import { ShieldCheck } from "lucide-react";
-import AssessmentForm from "@/app/tools/assessment/components/AssessmentForm";
+import AssessmentForm from "@/app/dashboard/tools/assessment/_components/AssessmentForm";
 
 export default function AssessmentPage() {
   return (
