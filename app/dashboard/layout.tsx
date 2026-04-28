@@ -12,9 +12,12 @@ import {
   Bell,
   User,
   KeyIcon,
+  LogOut,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import NavButtons from "./_components/NavButtons";
+import { UserButton } from "@/components/UserButton";
+import UserNav from "@/components/UserNav";
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -44,14 +47,15 @@ export default function DashboardLayout({
         <nav className="flex-1 p-4 overflow-y-auto">
           {sidebarNav || <NavButtons />}
         </nav>
-        <div className="p-4 border-t border-trust-border">
-          <Link
-            href="#"
-            className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-slate-400 hover:bg-trust-surface hover:text-white transition-all"
+
+        <div className=" flex border-t border-trust-border">
+          <Button
+            variant="ghost"
+            className="flex-1 rounded-none py-8 hover:bg-destructive/40 gap-2"
           >
-            <Settings className="w-4 h-4" />
-            Settings
-          </Link>
+            <LogOut size={16}></LogOut>
+            Logout
+          </Button>
         </div>
       </aside>
 
@@ -67,9 +71,8 @@ export default function DashboardLayout({
               <Bell className="w-4 h-4 group-hover:animate-pulse" />
             </button>
             <div className="h-9 w-9 rounded-full bg-gradient-to-br from-trust-blue to-trust-teal p-[1px] cursor-pointer hover:scale-105 transition-transform">
-              <div className="w-full h-full rounded-full bg-trust-dark flex items-center justify-center">
-                <User className="w-4 h-4 text-slate-300" />
-              </div>
+              <UserNav></UserNav>
+              {/* <UserButton></UserButton> */}
             </div>
           </div>
         </header>
