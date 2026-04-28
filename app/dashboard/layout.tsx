@@ -14,6 +14,7 @@ import {
   KeyIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import NavButtons from "./_components/NavButtons";
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -41,7 +42,7 @@ export default function DashboardLayout({
           </Link>
         </div>
         <nav className="flex-1 p-4 overflow-y-auto">
-          {sidebarNav || <DefaultNavigation />}
+          {sidebarNav || <NavButtons />}
         </nav>
         <div className="p-4 border-t border-trust-border">
           <Link
@@ -79,60 +80,5 @@ export default function DashboardLayout({
         </main>
       </div>
     </div>
-  );
-}
-
-function DefaultNavigation() {
-  type NavButton = {
-    name: string;
-    href: string;
-    icon: ForwardRefExoticComponent<
-      Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
-    >;
-  };
-
-  const pathname = usePathname();
-
-  const items: NavButton[] = [
-    { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-    {
-      name: "Risk Assessment",
-      href: "/dashboard/tools/assessment",
-      icon: ShieldCheck,
-    },
-    {
-      name: "Password Strength",
-      href: "/dashboard/tools/password",
-      icon: KeyIcon,
-    },
-    { name: "URL Analyzer", href: "/dashboard/tools/url", icon: LinkIcon },
-  ];
-
-  return (
-    <ul className="space-y-2">
-      {items.map((item) => {
-        const Icon = item.icon;
-        const isActive =
-          pathname === item.href ||
-          (pathname.startsWith(item.href) && item.href !== "/dashboard");
-
-        return (
-          <li key={item.name}>
-            <Link
-              href={item.href}
-              className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-300`}
-            >
-              <Button
-                className="w-80 gap-2 justify-start"
-                variant={isActive ? "default" : "ghost"}
-              >
-                <Icon className={`w-4 h-4 ${isActive ? "text-accent" : ""}`} />
-                {item.name}
-              </Button>
-            </Link>
-          </li>
-        );
-      })}
-    </ul>
   );
 }
