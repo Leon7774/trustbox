@@ -1,17 +1,8 @@
 // src/app/layout.tsx
 import type { Metadata } from "next";
-import {
-  Outfit,
-  JetBrains_Mono,
-  Geist,
-  Space_Grotesk,
-  Manrope,
-} from "next/font/google";
+import { JetBrains_Mono, Space_Grotesk, Manrope } from "next/font/google";
 import "./globals.css";
-import Image from "next/image";
-import Link from "next/link";
-import { UserButton } from "@/app/components/UserButton";
-import { getAuthUser } from "@/app/actions/authActions"; // Your clean DAL function
+import { getAuthUser } from "@/lib/auth"; // Your clean DAL function
 import { cn } from "@/lib/utils";
 import { Toaster } from "sonner";
 
@@ -49,16 +40,12 @@ export default async function RootLayout({
       <body
         // Inject all 5 CSS variables into the body so they are available globally
         className={cn(
-          // geist.variable,
-          // outfit.variable,
           spaceGrotesk.className,
           manrope.variable,
 
           "min-h-full flex flex-col text-slate-100 bg-trust-dark font-sans", // Assuming one of these maps to font-sans in Tailwind
         )}
       >
-
-
         <main className="flex-1 flex flex-col items-center w-full mx-auto">
           {children}
         </main>
