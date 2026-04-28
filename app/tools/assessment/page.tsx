@@ -18,7 +18,7 @@ export default function AssessmentPage() {
           </p>
         </div>
 
-        <div className="relative z-10 w-full min-h-[400px] flex items-center justify-center">
+        <div className="relative z-10 w-full min-h-100 flex items-center justify-center">
           <AssessmentForm />
         </div>
       </div>

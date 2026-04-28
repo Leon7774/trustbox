@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   ShieldCheck,
   ArrowRight,
@@ -21,12 +22,16 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { questions } from "./questions";
+import { questionsByLevel, ProficiencyLevel } from "./questions";
+// import AssessmentChat from "./AssessmentChat";
 
 export default function AssessmentForm() {
+  const router = useRouter();
   // Tracks the current stage of the assessment
   const [step, setStep] = useState(0);
-  
+  const [proficiency, setProficiency] = useState<ProficiencyLevel | null>(null);
+
+  const activeQuestions = proficiency ? questionsByLevel[proficiency] : [];
   const [answers, setAnswers] = useState<Record<string, number>>({});
 
   const [behavioralScore, setBehavioralScore] = useState(0);
@@ -45,21 +50,21 @@ export default function AssessmentForm() {
   const handleAnswer = (questionId: string, score: number) => {
     setAnswers((prev) => ({ ...prev, [questionId]: score }));
 
-    if (step <= questions.length) {
+    if (step <= activeQuestions.length) {
       setStep(step + 1);
     }
   };
 
   const handlePasswordSubmit = async () => {
     setIsSubmitting(true);
-    setStep(5);
+    setStep(activeQuestions.length + 2);
 
     const bScore =
       Object.values(answers).reduce((acc, curr) => acc + curr, 0) /
-      questions.length;
+      activeQuestions.length;
     const pwResult = zxcvbn(testPassword);
     const pScore = (pwResult.score / 4) * 100;
-    const uScore = answers["q2"] || 50;
+    const uScore = 50; // default for now, since q2 URL specific question is gone
 
     setBehavioralScore(bScore);
     setPasswordScore(pScore);
@@ -86,7 +91,7 @@ export default function AssessmentForm() {
       rawResponses: answers,
     });
 
-    if (res.success && res.recommendations) {
+    if (res.recommendations) {
       setAiGuidance(res.recommendations);
     } else {
       setAiGuidance(
@@ -95,7 +100,11 @@ export default function AssessmentForm() {
     }
 
     setIsSubmitting(false);
-    setStep(6);
+    if (res.success && res.assessmentId) {
+      router.push(`/tools/assessment/results/${res.assessmentId}`);
+    } else {
+      setStep(activeQuestions.length + 3);
+    }
   };
 
   if (step === 0) {
@@ -108,38 +117,65 @@ export default function AssessmentForm() {
           Discover Your Risk Profile
         </CardTitle>
         <CardDescription className="text-slate-400 mb-8 max-w-md mx-auto text-base">
-          Answer a few behavioral questions and test your daily password.
-          TrustBox will calculate your Personal Cyber Risk Score.
+          Select your proficiency level to begin the behavioral assessment and
+          test your daily password.
         </CardDescription>
-        <Button
-          size="lg"
-          onClick={() => setStep(1)}
-          className="hover:cursor-pointer group rounded-full bg-brand-primary text-black hover:from-primary/90 hover:to-secondary/90 transition-all hover:shadow-[0_0_20px_rgba(14,165,233,0.4)]"
-        >
-          Begin Evaluation
-          <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-        </Button>
+        <div className="flex flex-col gap-4 w-full max-w-xs">
+          <Button
+            size="lg"
+            variant="default"
+            onClick={() => {
+              setProficiency("BEGINNER");
+              setStep(1);
+            }}
+            className="hover:border-primary hover:text-primary transition-all text-lg py-6"
+          >
+            I am a Beginner
+          </Button>
+          <Button
+            size="lg"
+            variant="default"
+            onClick={() => {
+              setProficiency("INTERMEDIATE");
+              setStep(1);
+            }}
+            className="hover:border-primary hover:text-primary transition-all text-lg py-6"
+          >
+            I am Intermediate
+          </Button>
+          <Button
+            size="lg"
+            variant="default"
+            onClick={() => {
+              setProficiency("ADVANCED");
+              setStep(1);
+            }}
+            className="hover:border-primary hover:text-primary transition-all text-lg py-6"
+          >
+            I am Advanced
+          </Button>
+        </div>
       </Card>
     );
   }
 
-  if (step > 0 && step <= questions.length) {
-    const q = questions[step - 1];
+  if (step > 0 && step <= activeQuestions.length) {
+    const q = activeQuestions[step - 1];
     return (
       <Card className="w-full max-w-2xl mx-auto shadow-xl animate-in slide-in-from-right-8 fade-in duration-500">
         <CardHeader>
           <div className="flex justify-between items-center mb-4">
             <span className=" text-sm font-medium">
-              Question {step} of {questions.length}
+              Question {step} of {activeQuestions.length}
             </span>
-            <div className="flex gap-1">
-              {questions.map((_, i) => (
+            <div className="flex gap-1 overflow-hidden max-w-[200px]">
+              {/* Show limited progress indicators to avoid overflow with many questions */}
+              <div className="h-2 w-full bg-border rounded-full overflow-hidden">
                 <div
-                  key={i}
-                  className={`h-1.5 w-6 rounded-full transition-colors ${i < step ? "bg-primary" : "bg-border"}`}
+                  className="h-full bg-primary transition-all duration-300"
+                  style={{ width: `${(step / activeQuestions.length) * 100}%` }}
                 />
-              ))}
-              <div className={`h-1.5 w-6 rounded-full bg-border`} />
+              </div>
             </div>
           </div>
           <CardTitle className="text-2xl font-bold text-white leading-tight">
@@ -163,7 +199,7 @@ export default function AssessmentForm() {
     );
   }
 
-  if (step === questions.length + 1) {
+  if (step === activeQuestions.length + 1) {
     return (
       <Card className="w-full max-w-xl mx-auto shadow-xl animate-in slide-in-from-right-8 fade-in duration-500">
         <CardHeader className="text-center">
@@ -199,7 +235,7 @@ export default function AssessmentForm() {
     );
   }
 
-  if (step === 5) {
+  if (step === activeQuestions.length + 2) {
     return (
       <Card className="w-full max-w-xl mx-auto py-12 flex flex-col items-center justify-center animate-in fade-in duration-500 bg-transparent border-0 shadow-none">
         <div className="w-16 h-16 border-4 border-border border-t-primary rounded-full animate-spin mb-6" />
@@ -213,77 +249,79 @@ export default function AssessmentForm() {
     );
   }
 
-  if (step === 6) {
+  if (step === activeQuestions.length + 3) {
     return (
-      <Card className="w-full max-w-2xl mx-auto p-4 md:p-8 flex flex-col items-center text-center animate-in zoom-in-95 fade-in duration-1000 bg-transparent border-0 shadow-none">
-        <div
-          className={`w-32 h-32 rounded-full border-8 flex items-center justify-center mb-6 shadow-[0_0_60px_-15px_currentColor] ${
-            riskLevel === "Low"
-              ? "border-secondary text-secondary"
-              : riskLevel === "Medium"
-                ? "border-yellow-500 text-yellow-500"
-                : "border-red-500 text-red-500"
-          }`}
-        >
-          <span className="text-5xl font-black">{finalScore}</span>
-        </div>
-
-        <h2 className="text-3xl font-bold text-white mb-2">
-          Your Risk Level is{" "}
-          <span
-            className={
+      <div className="w-full max-w-4xl mx-auto flex flex-col gap-10 animate-in zoom-in-95 fade-in duration-1000">
+        <Card className="w-full p-4 md:p-8 flex flex-col items-center text-center bg-transparent border-0 shadow-none">
+          <div
+            className={`w-32 h-32 rounded-full border-8 flex items-center justify-center mb-6 shadow-[0_0_60px_-15px_currentColor] ${
               riskLevel === "Low"
-                ? "text-secondary"
+                ? "border-secondary text-secondary"
                 : riskLevel === "Medium"
-                  ? "text-yellow-500"
-                  : "text-red-500"
-            }
+                  ? "border-yellow-500 text-yellow-500"
+                  : "border-red-500 text-red-500"
+            }`}
           >
-            {riskLevel}
-          </span>
-        </h2>
-        <p className="text-slate-400 mb-8 max-w-lg">
-          We aggregated your Behavioral Assessment ({behavioralScore.toFixed(0)}
-          ), Password Strength ({passwordScore.toFixed(0)}), and URL Awareness (
-          {urlScore.toFixed(0)}).
-        </p>
+            <span className="text-5xl font-black">{finalScore}</span>
+          </div>
 
-        <Card className="w-full text-left mb-6 shadow-xl bg-surface">
-          <CardHeader>
-            <CardTitle className="text-sm font-semibold uppercase tracking-wider flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-primary" />
-              AI Security Guidance
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="prose prose-invert prose-p:text-slate-300 prose-li:text-slate-300 max-w-none text-sm space-y-2">
-              {aiGuidance
-                .split("\n")
-                .filter(Boolean)
-                .map((line, i) => (
-                  <div
-                    key={i}
-                    className="flex items-start gap-3 fade-in slide-in-from-bottom-2 animate-in fill-mode-both"
-                    style={{ animationDelay: `${i * 150}ms` }}
-                  >
-                    <CheckCircle2 className="w-4 h-4 text-secondary mt-0.5 shrink-0" />
-                    <span className="leading-relaxed text-gray-300">
-                      {line.replace(/^[-*]\s*/, "")}
-                    </span>
-                  </div>
-                ))}
-            </div>
-          </CardContent>
+          <h2 className="text-3xl font-bold text-white mb-2">
+            Your Risk Level is{" "}
+            <span
+              className={
+                riskLevel === "Low"
+                  ? "text-secondary"
+                  : riskLevel === "Medium"
+                    ? "text-yellow-500"
+                    : "text-red-500"
+              }
+            >
+              {riskLevel}
+            </span>
+          </h2>
+          <p className="text-slate-400 mb-8 max-w-lg">
+            We aggregated your Behavioral Assessment (
+            {behavioralScore.toFixed(0)}
+            ), Password Strength ({passwordScore.toFixed(0)}), and URL Awareness
+            ({urlScore.toFixed(0)}).
+          </p>
+
+          <Card className="w-full text-left mb-6 shadow-xl bg-surface">
+            <CardHeader>
+              <CardTitle className="text-sm font-semibold uppercase tracking-wider flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-primary" />
+                AI Security Guidance
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="prose prose-invert prose-p:text-slate-300 prose-li:text-slate-300 max-w-none space-y-2">
+                {aiGuidance}
+              </div>
+            </CardContent>
+          </Card>
         </Card>
 
-        <Button
-          variant="link"
-          onClick={() => window.location.reload()}
-          className="text-slate-400 hover:text-white"
-        >
-          Retake Assessment
-        </Button>
-      </Card>
+        {/* ChatGPT Style Assessment Chat */}
+        <AssessmentChat
+          assessmentData={{
+            behavioralScore,
+            passwordScore,
+            urlScore,
+            finalScore,
+            riskLevel,
+          }}
+        />
+
+        <div className="flex justify-center pb-12 pt-4">
+          <Button
+            variant="link"
+            onClick={() => window.location.reload()}
+            className="text-slate-400 hover:text-white"
+          >
+            Retake Assessment
+          </Button>
+        </div>
+      </div>
     );
   }
 
