@@ -3,6 +3,8 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
+import { db } from "@/db/index";
+import { users } from "@/db/schema";
 
 function maskEmail(email: string) {
   const [local, domain] = email.split("@");
@@ -47,7 +49,7 @@ export async function registerAction(formData: FormData) {
 
   const supabase = await createClient();
 
-  const { error } = await supabase.auth.signUp({
+  const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
@@ -59,6 +61,13 @@ export async function registerAction(formData: FormData) {
 
   if (error) {
     return { error: error.message };
+  }
+
+  if (data?.user) {
+    await db.insert(users).values({
+      anonymousId: data.user.id,
+      fullName: name || "",
+    });
   }
 
   revalidatePath("/", "layout");
