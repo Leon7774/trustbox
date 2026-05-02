@@ -13,7 +13,7 @@ export default async function LoginLayout({
   return (
     <>
       <header className="inset-x-0 h-16 border-b border-trust-border backdrop-blur-md bg-trust-dark/50 flex items-center justify-center sticky top-0 z-50">
-        <div className="w-full max-w-6xl px-4 flex justify-between items-center">
+        <div className="w-full px-8 flex justify-between items-center">
           <Link href="/" className="flex items-center gap-2">
             <Image
               src="/logo.svg"

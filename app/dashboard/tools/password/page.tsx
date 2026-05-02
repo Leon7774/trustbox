@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function PasswordCheckerPage() {
   return (
-    <div className="w-full max-w-3xl flex flex-col items-center animate-in fade-in duration-700">
+    <div className="w-full  flex flex-col items-center animate-in fade-in duration-700">
       <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-secondary/20 to-secondary/5 border border-secondary/20 flex items-center justify-center text-secondary mb-6">
         <Key className="w-8 h-8" />
       </div>

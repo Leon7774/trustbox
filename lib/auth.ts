@@ -1,4 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
+import { db } from "@/db/index";
+import { users } from "@/db/schema";
+import { eq } from "drizzle-orm";
 
 export async function getAuthUser() {
   try {
@@ -9,12 +12,19 @@ export async function getAuthUser() {
 
     // DAL
     if (data?.user) {
-      // Only return what the UI actually needs to know
+      const [dbUser] = await db
+        .select()
+        .from(users)
+        .where(eq(users.anonymousId, data.user.id))
+        .limit(1);
+
+      // Return a combined user object
       return {
-        id: data.user.id,
-        email: data.user.email,
-        name: data.user.user_metadata?.full_name || "User",
+        ...data.user,
+        dbUser: dbUser || null,
       };
+    } else {
+      return null;
     }
   } catch (error) {
     // Fails silently on the frontend, logs on the backend

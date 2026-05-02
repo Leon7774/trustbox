@@ -27,7 +27,7 @@ export default function PasswordChecker() {
   const scoreLabels = ["Very Weak", "Weak", "Fair", "Strong", "Very Strong"];
 
   // Calculate generic entropy stats
-  const lengthScore = password.length >= 12 ? true : false;
+  const lengthScore = password.length >= 8 ? true : false;
   const hasUpper = /[A-Z]/.test(password);
   const hasLower = /[a-z]/.test(password);
   const hasNumber = /[0-9]/.test(password);
@@ -108,7 +108,7 @@ export default function PasswordChecker() {
               <ul className="space-y-3">
                 <li className="flex items-center gap-3 text-sm">
                   {lengthScore ? <Check className="w-4 h-4 text-secondary" /> : <X className="w-4 h-4 text-slate-600" />}
-                  <span className={lengthScore ? "text-slate-200" : "text-slate-500"}>12+ Characters ({password.length})</span>
+                  <span className={lengthScore ? "text-slate-200" : "text-slate-500"}>8+ Characters ({password.length})</span>
                 </li>
                 <li className="flex items-center gap-3 text-sm">
                   {hasUpper ? <Check className="w-4 h-4 text-secondary" /> : <X className="w-4 h-4 text-slate-600" />}

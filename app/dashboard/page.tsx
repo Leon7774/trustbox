@@ -9,7 +9,7 @@ const dashboardCards: DashboardCardProps[] = [
     href: "/dashboard/tools/assessment",
     icon: ShieldCheck,
     description:
-      "Evaluate your cybersecurity behavior based on proven psychological models (HBM & PMT) to reveal hidden vulnerabilities.",
+      "Evaluate your digital habits and security posture to reveal hidden vulnerabilities.",
     callToAction: "Start Assessment",
   },
   {
@@ -37,7 +37,7 @@ export default function Home() {
       <section className="text-center space-y-4 max-w-3xl mt-12 w-full">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-trust-surface border border-trust-border text-xs font-medium text-trust-teal mb-4 backdrop-blur-md">
           <Activity className="w-4 h-4 animate-pulse" />
-          <span>Behavioral-Based Cyber Risk Scoring</span>
+          <span>Interactive Cyber Risk Scoring</span>
         </div>
         <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white mb-6 leading-tight">
           Quantify Your{" "}
@@ -46,9 +46,9 @@ export default function Home() {
           </span>
         </h1>
         <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto font-light leading-relaxed">
-          TrustBox integrates behavioral assessment with password and URL
-          analysis to generate your Personal Cyber Risk Score and provide
-          personalized AI security guidance.
+          TrustBox integrates risk assessment with password and URL analysis to
+          generate your Personal Cyber Risk Score and provide personalized AI
+          security guidance.
         </p>
       </section>
 

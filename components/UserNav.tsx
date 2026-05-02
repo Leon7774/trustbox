@@ -10,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { List, LogOut, User } from "lucide-react";
+import Link from "next/link";
 
 export default function UserNav() {
   return (
@@ -26,9 +27,11 @@ export default function UserNav() {
             <User />
             Profile
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            <List /> Assessments
-          </DropdownMenuItem>
+          <Link href="/dashboard/assessments">
+            <DropdownMenuItem className="cursor-pointer">
+              <List /> Assessments
+            </DropdownMenuItem>
+          </Link>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>

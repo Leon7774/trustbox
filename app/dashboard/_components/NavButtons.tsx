@@ -23,6 +23,12 @@ type NavButton = {
 const items: NavButton[] = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { name: "Trustie AI Advice", href: "/dashboard/trustie", icon: BotIcon },
+
+  {
+    name: "Assessment Log",
+    href: "/dashboard/assessments",
+    icon: List,
+  },
   {
     name: "Risk Assessment",
     href: "/dashboard/tools/assessment",
@@ -34,11 +40,6 @@ const items: NavButton[] = [
     icon: KeyIcon,
   },
   { name: "URL Analyzer", href: "/dashboard/tools/url", icon: LinkIcon },
-  {
-    name: "Assessment Log",
-    href: "/dashboard/assessments",
-    icon: List,
-  },
 ];
 
 export default function NavButtons() {
@@ -62,7 +63,7 @@ export default function NavButtons() {
                 className="w-80 gap-2 justify-start"
                 variant={isActive ? "default" : "ghost"}
               >
-                <Icon className={`w-4 h-4 ${isActive ? "text-black" : ""}`} />
+                <Icon className={`w-4 h-4 ${isActive ? "text-white" : ""}`} />
                 {item.name}
               </Button>
             </Link>

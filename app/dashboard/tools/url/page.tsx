@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function UrlCheckerPage() {
   return (
-    <div className="w-full max-w-3xl flex flex-col items-center animate-in fade-in duration-700">
+    <div className="w-full p-20 flex flex-col items-center animate-in fade-in duration-700">
       <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-accent/20 to-accent/5 border border-accent/20 flex items-center justify-center text-accent mb-6">
         <LinkIcon className="w-8 h-8" />
       </div>

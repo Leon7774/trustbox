@@ -75,7 +75,7 @@ export default function HeroSection({ propName }: HeroSectionProps) {
             className="absolute bottom-5 right-5"
           />
         </div>
-        <div className="flex-1 flex-col flex text-accent rounded-2xl p-10 bg-brand-primary relative overflow-hidden group">
+        <div className="flex-1 flex-col flex text-background rounded-2xl p-10 bg-brand-primary relative overflow-hidden group">
           <div className="relative z-10">
             <SparklesIcon size={40} className="mb-5"></SparklesIcon>
             <h2 className="font-black text-xl">Personalized Guidance</h2>
@@ -90,15 +90,15 @@ export default function HeroSection({ propName }: HeroSectionProps) {
 
       <div className="w-full lg:px-40">
         <div className="w-full relative px-20 my-20 group rounded-4xl  overflow-hidden h-60 flex items-center justify-center bg-black/20 border border-white/5">
+          <h2 className="text-4xl font-bold font-space-grotesk">
+            Science-backed assessment methods
+          </h2>
           <Image
             src="/abstract-bg-1.webp"
             alt="abstract-bg-footer"
             fill
-            className="object-cover opacity-20 mix-blend-overlay group-hover:scale-105 transition-transform duration-1000"
+            className="object-cover opacity-10 group-hover:scale-105 transition-transform duration-1000"
           />
-          <h2 className="text-4xl font-bold font-space-grotesk">
-            Science-backed assessment methods
-          </h2>
         </div>
       </div>
       <div className=" w-full py-80 flex items-center justify-center flex-col bg-black/20 gap-8 rounded-4xl">

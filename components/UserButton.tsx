@@ -4,22 +4,12 @@ import { useState, useRef, useEffect } from "react";
 import { User, LogOut, FileText, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { logoutAction } from "@/app/actions/authActions";
+import { useUser } from "@/hooks/useUser";
 
-interface Assessment {
-  id: number;
-  totalScore: number;
-  riskLevel: string;
-  createdAt: string | Date;
-}
-
-interface UserButtonProps {
-  email: string;
-  pastAssessments: Assessment[];
-}
-
-export function UserButton({ email, pastAssessments }: UserButtonProps) {
+export function UserButton() {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const { user } = useUser();
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -41,7 +31,7 @@ export function UserButton({ email, pastAssessments }: UserButtonProps) {
         className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-slate-400 hover:text-white hover:bg-trust-surface border border-transparent hover:border-trust-border transition-all cursor-pointer"
       >
         <User className="w-4 h-4" />
-        <span className="hidden sm:inline">{email}</span>
+        <span className="hidden sm:inline">{user?.email}</span>
         <ChevronDown
           className={`w-4 h-4 ml-1 transition-transform ${isOpen ? "rotate-180" : ""}`}
         />

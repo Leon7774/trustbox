@@ -5,6 +5,8 @@ import "./globals.css";
 import { getAuthUser } from "@/lib/auth"; // Your clean DAL function
 import { cn } from "@/lib/utils";
 import { Toaster } from "sonner";
+import { useUser } from "@/hooks/useUser";
+import { UserProvider } from "@/components/providers/UserProvider";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -33,7 +35,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const authUser = await getAuthUser();
+  const user = await getAuthUser();
 
   return (
     <html lang="en" className={cn("dark h-full antialiased")}>
@@ -46,9 +48,7 @@ export default async function RootLayout({
           "min-h-full flex flex-col text-slate-100 bg-trust-dark font-sans", // Assuming one of these maps to font-sans in Tailwind
         )}
       >
-        <main className="flex-1 flex flex-col items-center w-full mx-auto">
-          {children}
-        </main>
+        <UserProvider serverUser={user}>{children}</UserProvider>
         <Toaster />
       </body>
     </html>
