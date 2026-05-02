@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@ai-sdk/google": "^3.0.43",
+    "@ai-sdk/groq": "^3.0.37",
     "@ai-sdk/react": "^3.0.170",
     "@google/genai": "^1.46.0",
     "@radix-ui/react-label": "^2.1.8",
@@ -23,6 +24,7 @@
     "ai": "^6.0.116",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
     "drizzle-orm": "^0.45.1",
     "framer-motion": "^12.38.0",
     "lucide-react": "^0.577.0",
@@ -53,6 +55,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.0",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^3.2.4"
   }
 }
