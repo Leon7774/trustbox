@@ -38,9 +38,9 @@ export default function AssessmentChat({
     <div className="w-full h-full flex flex-col flex-1 min-h-0 relative">
       <div className="flex-1 overflow-y-auto w-full pb-4">
         <div className="max-w-4xl mx-auto w-full px-4 md:px-8 py-8 space-y-6">
-          {messages.map((message) => (
+          {messages.map((message, index) => (
             <div
-              key={message.id}
+              key={`${message.id}-${index}`}
               className={`flex ${message.role === "user" ? "justify-end mb-6" : "gap-4 mb-6"}`}
             >
               {message.role === "assistant" && (
@@ -103,7 +103,7 @@ export default function AssessmentChat({
       </div>
 
       {/* Input Form */}
-      <div className="w-full shrink-0 border-t border-white/10 pt-4 pb-8 bg-background z-20">
+      <div className="w-full shrink-0 border-t border-white/10 pt-4 pb-8 z-20">
         <form
           onSubmit={handleSubmit}
           className="relative flex items-center w-full max-w-4xl mx-auto px-4 md:px-8"

@@ -18,8 +18,49 @@ export const maxDuration = 60;
 
 const allQuestions = Object.values(questionsByLevel).flat();
 
+function normalizeChatMessage(raw: any) {
+  const msg = raw?.message ? raw.message : raw;
+  if (!msg || typeof msg !== "object" || !msg.role) return null;
+
+  if (Array.isArray(msg.parts)) {
+    const textPart = msg.parts.find((p: any) => p?.type === "text");
+    if (!textPart?.text) return null;
+    return {
+      id: msg.id || Math.random().toString(36).substring(7),
+      role: msg.role,
+      parts: [{ type: "text", text: textPart.text }],
+    };
+  }
+
+  if (typeof msg.content === "string" && msg.content.trim()) {
+    return {
+      id: msg.id || Math.random().toString(36).substring(7),
+      role: msg.role,
+      parts: [{ type: "text", text: msg.content }],
+    };
+  }
+
+  if (Array.isArray(msg.content)) {
+    const textPart = msg.content.find((p: any) => p?.type === "text");
+    if (!textPart?.text) return null;
+    return {
+      id: msg.id || Math.random().toString(36).substring(7),
+      role: msg.role,
+      parts: [{ type: "text", text: textPart.text }],
+    };
+  }
+
+  return null;
+}
+
 export async function POST(req: Request) {
-  const { messages, data } = await req.json();
+  const { messages: rawMessages, data } = await req.json();
+
+  // Filter out any non-message objects (like stream completion events)
+  const messages = (rawMessages as any[]).filter(
+    (m) => m && typeof m === "object" && m.role && (m.content || m.parts),
+  );
+
 
   // Convert UIMessages (parts-based) to ModelMessages (content-based) for streamText
 
@@ -103,116 +144,122 @@ Do not wait for a prompt. Immediately greet the user (e.g., "Hi, I'm Trustie..."
 
       messages: modelMessages,
 
-      onFinish: async ({ responseMessages }) => {
+      onFinish: async (event) => {
         console.log("Stream finished. Starting auto-save...");
 
-        if (data?.assessmentData) {
-          console.log(
-            "Assessment data received in API:",
+        try {
+          const responseMessages = event?.response?.messages ?? [];
 
-            JSON.stringify(data.assessmentData),
-          );
+          if (data?.assessmentData) {
+            console.log(
+              "Assessment data received in API:",
 
-          const { userId, id: assessmentId } = data.assessmentData;
-
-          if (!userId || !assessmentId) {
-            console.warn(
-              "Missing userId or assessmentId in assessmentData:",
-
-              data.assessmentData,
+              JSON.stringify(data.assessmentData),
             );
 
-            return;
-          }
+            const { userId, id: assessmentId } = data.assessmentData;
 
-          if (assessmentId === 99999) {
-            console.log("Mock assessment 99999 detected. Proceeding to save.");
-          }
+            if (!userId || !assessmentId) {
+              console.warn(
+                "Missing userId or assessmentId in assessmentData:",
 
-          // Ensure all messages have ids and consistent format for the client
-
-          const allMessages = [
-            ...messages,
-
-            ...responseMessages.map((m) => ({
-              ...m,
-
-              id: m.id || Math.random().toString(36).substring(7),
-            })),
-          ];
-
-          // Generate title if it's the first assistant response
-
-          let title = undefined;
-
-          if (
-            messages.length === 1 &&
-            (messages[0].content === "[INIT_ASSESSMENT]" ||
-              messages[0].parts?.some(
-                (p: any) => p.type === "text" && p.text === "[INIT_ASSESSMENT]",
-              ))
-          ) {
-            const firstAssistantMsg = responseMessages.find(
-              (m) => m.role === "assistant",
-            );
-
-            if (
-              firstAssistantMsg &&
-              firstAssistantMsg.content &&
-              Array.isArray(firstAssistantMsg.content)
-            ) {
-              const textPart = firstAssistantMsg.content.find(
-                (p: any) => p.type === "text",
+                data.assessmentData,
               );
 
-              if (textPart) {
-                title = textPart.text.slice(0, 60).replace(/\n/g, " ") + "...";
-              }
-            } else if (
-              firstAssistantMsg &&
-              typeof firstAssistantMsg.content === "string"
+              return;
+            }
+
+            if (assessmentId === 99999) {
+              console.log("Mock assessment 99999 detected. Proceeding to save.");
+            }
+
+            // Ensure all messages have ids and consistent format for the client
+
+            const allMessages = [
+              ...messages,
+
+              ...responseMessages.map((m) => ({
+                ...m,
+
+                id: m.id || Math.random().toString(36).substring(7),
+              })),
+            ]
+              .map(normalizeChatMessage)
+              .filter((m) => m !== null);
+
+            // Generate title if it's the first assistant response
+
+            let title = `Assessment #${assessmentId}`;
+
+            if (
+              messages.length === 1 &&
+              (messages[0].content === "[INIT_ASSESSMENT]" ||
+                messages[0].parts?.some(
+                  (p: any) => p.type === "text" && p.text === "[INIT_ASSESSMENT]",
+                ))
             ) {
-              title =
-                firstAssistantMsg.content.slice(0, 60).replace(/\n/g, " ") +
-                "...";
+              const firstAssistantMsg = responseMessages.find(
+                (m) => m.role === "assistant",
+              );
+
+              if (
+                firstAssistantMsg &&
+                firstAssistantMsg.content &&
+                Array.isArray(firstAssistantMsg.content)
+              ) {
+                const textPart = firstAssistantMsg.content.find(
+                  (p: any) => p.type === "text",
+                );
+
+                if (textPart) {
+                  title = `Assessment #${assessmentId}`;
+                }
+              } else if (
+                firstAssistantMsg &&
+                typeof firstAssistantMsg.content === "string"
+              ) {
+                title = `Assessment #${assessmentId}`;
+              }
+            }
+
+            // We use a try-catch because saveChatSession might fail and we don't want to break the stream
+
+            try {
+              console.log(
+                `Auto-saving chat session for assessment: ${assessmentId}, user: ${userId}`,
+              );
+
+              await upsertChatSession({
+                userId: Number(userId),
+
+                assessmentId: Number(assessmentId),
+
+                messages: allMessages,
+
+                title,
+              });
+
+              console.log("Auto-save successful.");
+            } catch (e) {
+              console.error("Failed to auto-save chat session:", e);
+
+              await logError({
+                action: "AUTO_SAVE_CHAT",
+
+                error: e,
+
+                metadata: {
+                  assessmentId,
+
+                  userId,
+
+                  messagesCount: allMessages.length,
+                },
+              });
             }
           }
-
-          // We use a try-catch because saveChatSession might fail and we don't want to break the stream
-
-          try {
-            console.log(
-              `Auto-saving chat session for assessment: ${assessmentId}, user: ${userId}`,
-            );
-
-            await upsertChatSession({
-              userId: Number(userId),
-
-              assessmentId: Number(assessmentId),
-
-              messages: allMessages,
-
-              title,
-            });
-
-            console.log("Auto-save successful.");
-          } catch (e) {
-            console.error("Failed to auto-save chat session:", e);
-
-            await logError({
-              action: "AUTO_SAVE_CHAT",
-
-              error: e,
-
-              metadata: {
-                assessmentId,
-
-                userId,
-
-                messagesCount: allMessages.length,
-              },
-            });
-          }
+        } catch (e) {
+          console.error("Failed in chat onFinish handler:", e);
         }
       },
     });

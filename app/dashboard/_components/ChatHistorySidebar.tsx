@@ -31,6 +31,23 @@ export default function ChatHistorySidebar({
     setSessions(initialSessions);
   }, [initialSessions]);
 
+  useEffect(() => {
+    let mounted = true;
+
+    const refreshSessions = async () => {
+      const latestSessions = await getChatSessions(userId);
+      if (!mounted) return;
+      setSessions(latestSessions);
+    };
+
+    refreshSessions();
+    const timer = setInterval(refreshSessions, 8000);
+    return () => {
+      mounted = false;
+      clearInterval(timer);
+    };
+  }, [userId, pathname]);
+
   const handleDelete = async (e: React.MouseEvent, id: number) => {
     e.preventDefault();
     e.stopPropagation();
@@ -38,11 +55,16 @@ export default function ChatHistorySidebar({
     if (confirm("Are you sure you want to delete this chat history?")) {
       const result = await deleteChatSession(id);
       if (result.success) {
-        setSessions(sessions.filter((s) => s.id !== id));
+        setSessions((prev) => prev.filter((s) => s.id !== id));
         // If we are currently on this chat's page, we might want to stay there but it won't have history anymore
       }
     }
   };
+
+  const sortedSessions = [...sessions].sort(
+    (a, b) =>
+      new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+  );
 
   return (
     <div className="flex flex-col h-full animate-in slide-in-from-left duration-300">
@@ -71,7 +93,7 @@ export default function ChatHistorySidebar({
             <p className="text-slate-500 text-sm">No chat history yet.</p>
           </div>
         ) : (
-          sessions.map((session) => {
+          sortedSessions.map((session) => {
             const isActive = pathname === `/dashboard/trustie/${session.assessmentId}`;
 
             return (
@@ -87,7 +109,9 @@ export default function ChatHistorySidebar({
                 <div className={`shrink-0 w-2 h-2 rounded-full ${isActive ? "bg-trust-blue shadow-[0_0_8px_rgba(0,163,255,0.8)]" : "bg-slate-700"}`} />
                 
                 <div className="flex-1 min-w-0">
-                  <p className="truncate font-medium">{session.title}</p>
+                  <p className="truncate font-medium">
+                    {`Assessment #${session.assessmentId}`}
+                  </p>
                   <p className="text-[10px] text-slate-500 mt-0.5">
                     {formatDistanceToNow(new Date(session.updatedAt), { addSuffix: true })}
                   </p>

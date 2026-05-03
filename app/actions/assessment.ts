@@ -65,6 +65,13 @@ export async function submitAssessmentAction(data: {
       .returning()
       .then((res) => res[0]);
 
+    await db
+      .update(users)
+      .set({
+        latestSecurityScore: data.totalScore,
+      })
+      .where(eq(users.id, dbUser.id));
+
     return {
       success: true,
       assessmentId: assessment.id,

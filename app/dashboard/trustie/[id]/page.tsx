@@ -44,7 +44,7 @@ export default async function AssessmentChatPage({
   const initialMessages = chatSession ? (chatSession.messages as any[]) : [];
 
   return (
-    <div className="w-full p-8 h-[calc(100vh-64px)] flex flex-col animate-in fade-in duration-700 relative overflow-hidden bg-background">
+    <div className="w-full p-8 h-[calc(100vh-64px)] flex flex-col animate-in fade-in duration-700 relative overflow-hidden">
       {/* Back link */}
       <div className="shrink-0 px-4 pb-2 border-b border-white/10 flex items-center gap-2 z-10">
         <Link

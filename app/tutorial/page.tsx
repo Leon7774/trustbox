@@ -1,13 +1,19 @@
 "use client";
 
 import { useState } from "react";
+import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, Shield, ShieldCheck, Key, Globe, Brain, CheckCircle2, LayoutDashboard, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { completeTutorial } from "@/app/actions/user";
 
 export default function TutorialPage() {
   const [currentStep, setCurrentStep] = useState(0);
+
+  useEffect(() => {
+    void completeTutorial();
+  }, []);
 
   const tools = [
     {

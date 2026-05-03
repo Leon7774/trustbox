@@ -1,7 +1,14 @@
 import Link from "next/link";
-import { ShieldCheck, Key, Link as LinkIcon, Activity } from "lucide-react";
+import {
+  ShieldCheck,
+  Key,
+  Link as LinkIcon,
+  Activity,
+  GraduationCap,
+} from "lucide-react";
 import DashboardCard, { DashboardCardProps } from "./_components/DashboardCard";
 import { Item } from "@radix-ui/react-radio-group";
+import { getAuthUser } from "@/lib/auth";
 
 const dashboardCards: DashboardCardProps[] = [
   {
@@ -30,7 +37,10 @@ const dashboardCards: DashboardCardProps[] = [
   },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const authUser = await getAuthUser();
+  const latestScore = authUser?.dbUser?.latestSecurityScore;
+
   return (
     <div className="w-full flex flex-col items-center gap-12 animate-in fade-in duration-1000">
       {/* Hero */}
@@ -50,15 +60,65 @@ export default function Home() {
           generate your Personal Cyber Risk Score and provide personalized AI
           security guidance.
         </p>
+        <div className="">
+          <Link
+            href="/tutorial"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-trust-border bg-trust-surface text-slate-200 hover:text-white hover:border-trust-blue/50 transition-colors"
+          >
+            <GraduationCap className="w-4 h-4" />
+            Open Tutorial
+          </Link>
+        </div>
       </section>
 
       {/* Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl mt-8 mb-24">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl ">
         {/* Assessment Card */}
         {dashboardCards.map((card) => {
           return <DashboardCard key={card.title} {...card}></DashboardCard>;
         })}
       </div>
+      <section className="w-full max-w-5xl mb-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="rounded-2xl border border-trust-border bg-trust-surface/70 backdrop-blur-md p-6">
+            <p className="text-xs uppercase tracking-wide text-slate-400 mb-2">
+              Your Last Personal Risk Score
+            </p>
+            <div className="flex items-end gap-2">
+              <span className="text-4xl font-bold text-white">
+                {latestScore != null ? Math.round(latestScore) : "--"}
+              </span>
+              <span className="text-slate-400 mb-1">/100</span>
+            </div>
+            <p className="text-sm text-slate-500 mt-3">
+              {latestScore != null
+                ? "Based on your most recent assessment."
+                : "Take your first assessment to generate a score."}
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-trust-blue/30 bg-trust-blue/10 p-6 flex flex-col justify-between">
+            <div>
+              <p className="text-xs uppercase tracking-wide text-trust-blue mb-2">
+                AI Guidance
+              </p>
+              <h3 className="text-xl font-semibold text-white">
+                Get AI Advice Now
+              </h3>
+              <p className="text-sm text-slate-300 mt-2">
+                Ask Trustie for personalized next steps based on your latest
+                security profile.
+              </p>
+            </div>
+            <Link
+              href="/dashboard/trustie"
+              className="mt-4 inline-flex items-center justify-center rounded-xl bg-trust-blue hover:bg-trust-blue/90 text-white px-4 py-2.5 text-sm font-medium transition-colors"
+            >
+              Get AI Advice Now
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
