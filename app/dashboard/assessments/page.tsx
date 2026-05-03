@@ -50,7 +50,7 @@ export default async function AssessmentsPage({
   };
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-700">
+    <div className="space-y-6 p-8 animate-in fade-in duration-700">
       <div className="flex justify-between items-center border-b border-trust-border pb-6">
         <div>
           <h1 className="text-3xl font-bold text-white">Assessment Logs</h1>
@@ -88,7 +88,7 @@ export default async function AssessmentsPage({
                 </tr>
               </thead>
               <tbody className="divide-y divide-trust-border">
-                {assessments.length === 0 ? (
+                {!assessments ? (
                   <tr>
                     <td
                       colSpan={5}
@@ -142,31 +142,35 @@ export default async function AssessmentsPage({
         </CardContent>
       </Card>
 
-      {totalPages > 1 && (
-        <div className="flex justify-center items-center gap-4 pt-4">
-          <Link
-            href={`/dashboard/assessments?page=${page - 1}`}
-            className={page <= 1 ? "pointer-events-none opacity-50" : ""}
-          >
-            <Button variant="outline" size="sm" disabled={page <= 1}>
-              <ChevronLeft className="w-4 h-4 mr-1" /> Previous
-            </Button>
-          </Link>
-          <span className="text-sm text-slate-400">
-            Page <span className="text-white font-medium">{page}</span> of{" "}
-            {totalPages}
-          </span>
-          <Link
-            href={`/dashboard/assessments?page=${page + 1}`}
-            className={
-              page >= totalPages ? "pointer-events-none opacity-50" : ""
-            }
-          >
-            <Button variant="outline" size="sm" disabled={page >= totalPages}>
-              Next <ChevronRight className="w-4 h-4 ml-1" />
-            </Button>
-          </Link>
-        </div>
+      {totalPages ? (
+        totalPages > 1 && (
+          <div className="flex justify-center items-center gap-4 pt-4">
+            <Link
+              href={`/dashboard/assessments?page=${page - 1}`}
+              className={page <= 1 ? "pointer-events-none opacity-50" : ""}
+            >
+              <Button variant="outline" size="sm" disabled={page <= 1}>
+                <ChevronLeft className="w-4 h-4 mr-1" /> Previous
+              </Button>
+            </Link>
+            <span className="text-sm text-slate-400">
+              Page <span className="text-white font-medium">{page}</span> of{" "}
+              {totalPages}
+            </span>
+            <Link
+              href={`/dashboard/assessments?page=${page + 1}`}
+              className={
+                page >= totalPages ? "pointer-events-none opacity-50" : ""
+              }
+            >
+              <Button variant="outline" size="sm" disabled={page >= totalPages}>
+                Next <ChevronRight className="w-4 h-4 ml-1" />
+              </Button>
+            </Link>
+          </div>
+        )
+      ) : (
+        <></>
       )}
     </div>
   );

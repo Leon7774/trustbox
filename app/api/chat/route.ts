@@ -1,13 +1,18 @@
 import { createGroq } from "@ai-sdk/groq";
+
 import { streamText, convertToModelMessages } from "ai";
+
+import { retryWithBackoff } from "@/lib/ai-retry";
+
+import { questionsByLevel } from "../../dashboard/tools/assessment/_components/questions";
+
+import { logError } from "@/lib/logger";
+
+import { upsertChatSession } from "@/lib/chat-db";
 
 const groq = createGroq({
   apiKey: process.env.GROQ_LLM_API,
 });
-import { retryWithBackoff } from "@/lib/ai-retry";
-import { questionsByLevel } from "../../dashboard/tools/assessment/_components/questions";
-import { logError } from "@/lib/logger";
-import { saveChatSession } from "@/app/actions/chat";
 
 export const maxDuration = 60;
 
@@ -17,91 +22,149 @@ export async function POST(req: Request) {
   const { messages, data } = await req.json();
 
   // Convert UIMessages (parts-based) to ModelMessages (content-based) for streamText
+
   const modelMessages = await convertToModelMessages(messages);
 
-  let systemPrompt =
-    "You are TrustBox's AI Security Advisor. You act as an expert cybersecurity analyst providing actionable advice. Format your responses with clean spacing and bullet points where useful. Be concise.";
+  // 1. Define the core persona and constraints
+
+  let systemPrompt = `You are Trustie, TrustBox's AI Security Advisor. You are an expert cybersecurity analyst.
+
+Your tone must be professional, empathetic, and concise.
+
+
+STRICT CONSTRAINTS:
+
+- NEVER break character.
+
+- Keep responses under 150 words unless explaining a complex technical concept.
+
+- Always format actionable advice using markdown bullet points.
+
+- NEVER patronize the user. Be realistic about their risks and supportive about their improvements.`;
+
+  // 2. Inject Context using Data Delimiters
 
   if (data?.assessmentData) {
     const d = data.assessmentData;
-    systemPrompt += `\n\nThe user just completed their cyber assessment. Here are their performance metrics:\n- Overall Risk Score: ${d.totalScore}/100\n- Assessed Risk Level: ${d.riskLevel}\n\n`;
+
+    systemPrompt += `\n\n<user_security_profile>\n`;
+
+    systemPrompt += `- Overall Risk Score: ${d.totalScore}/100\n`;
+
+    systemPrompt += `- Assessed Risk Level: ${d.riskLevel}\n`;
 
     if (d.rawResponses) {
-      systemPrompt +=
-        "Here are the specific answers they gave during the assessment. Use these to tailor your advice (0% is high risk, 100% is best practice):\n";
+      systemPrompt += `\n<assessment_answers>\n`;
+
       Object.entries(d.rawResponses as Record<string, number>).forEach(
         ([qId, score]) => {
           const question = allQuestions.find((q) => q.id === qId);
+
           if (question) {
-            systemPrompt += `- Question: "${question.text}" | User Score: ${score}% (Construct: ${question.construct})\n`;
+            systemPrompt += `- [Construct: ${question.construct}] "${question.text}" | Score: ${score}% (Note: 0% = High Risk, 100% = Secure)\n`;
           }
         },
       );
+
+      systemPrompt += `</assessment_answers>\n`;
     }
 
-    systemPrompt +=
-      "\nHelp them understand these specific vulnerabilities based on their actual behaviors. Address them directly and refer to their specific habits naturally during the conversation. If they have a low score on a specific question, explain why that behavior is risky and how to fix it. Answer any questions they have about improving their security posture.";
+    systemPrompt += `</user_security_profile>\n\n`;
+
+    // 3. Define the specific task behavior
+
+    systemPrompt += `YOUR MISSION:
+
+Analyze the <user_security_profile>. Address the user directly about their specific vulnerabilities. If they scored low on a specific behavior, explain *why* it's risky and provide exact steps to fix it.`;
   }
 
-  // Check for the INIT_ASSESSMENT trigger in the last message's text content
+  // 4. Check for the initialization trigger safely
+
   const lastMessage = messages[messages.length - 1];
+
   const lastMessageText =
     lastMessage?.content ||
     lastMessage?.parts?.find((p: any) => p.type === "text")?.text ||
     "";
 
   if (lastMessageText === "[INIT_ASSESSMENT]") {
-    systemPrompt += `\n\nThe UI just securely provided you the scores and raw responses. DO NOT acknowledge the string '[INIT_ASSESSMENT]'. Start the conversation immediately by briefly saying hello and giving them 3 short, personalized, actionable bullet points about how to improve their security based strictly on their lowest scoring behaviors.`;
+    systemPrompt += `\n\nSYSTEM EVENT: THE USER HAS JUST LAUNCHED THE CHATBOX.
+
+Do not wait for a prompt. Immediately greet the user (e.g., "Hi, I'm Trustie...") and provide exactly 3 highly personalized, actionable bullet points on how to improve their security posture, targeting ONLY their lowest-scoring behaviors from the data above.`;
   }
+
+  // 5. Stream Generation and Database Auto-Save
 
   const result = await retryWithBackoff(async () => {
     return await streamText({
       model: groq("llama-3.3-70b-versatile"),
+
       system: systemPrompt,
+
       messages: modelMessages,
+
       onFinish: async ({ responseMessages }) => {
         console.log("Stream finished. Starting auto-save...");
+
         if (data?.assessmentData) {
-          console.log("Assessment data received in API:", JSON.stringify(data.assessmentData));
+          console.log(
+            "Assessment data received in API:",
+
+            JSON.stringify(data.assessmentData),
+          );
+
           const { userId, id: assessmentId } = data.assessmentData;
 
           if (!userId || !assessmentId) {
-            console.warn("Missing userId or assessmentId in assessmentData:", data.assessmentData);
+            console.warn(
+              "Missing userId or assessmentId in assessmentData:",
+
+              data.assessmentData,
+            );
+
             return;
           }
 
           if (assessmentId === 99999) {
             console.log("Mock assessment 99999 detected. Proceeding to save.");
           }
+
           // Ensure all messages have ids and consistent format for the client
+
           const allMessages = [
             ...messages,
+
             ...responseMessages.map((m) => ({
               ...m,
+
               id: m.id || Math.random().toString(36).substring(7),
             })),
           ];
 
           // Generate title if it's the first assistant response
+
           let title = undefined;
+
           if (
             messages.length === 1 &&
             (messages[0].content === "[INIT_ASSESSMENT]" ||
               messages[0].parts?.some(
-                (p: any) => p.type === "text" && p.text === "[INIT_ASSESSMENT]"
+                (p: any) => p.type === "text" && p.text === "[INIT_ASSESSMENT]",
               ))
           ) {
             const firstAssistantMsg = responseMessages.find(
-              (m) => m.role === "assistant"
+              (m) => m.role === "assistant",
             );
+
             if (
               firstAssistantMsg &&
               firstAssistantMsg.content &&
               Array.isArray(firstAssistantMsg.content)
             ) {
               const textPart = firstAssistantMsg.content.find(
-                (p: any) => p.type === "text"
+                (p: any) => p.type === "text",
               );
+
               if (textPart) {
                 title = textPart.text.slice(0, 60).replace(/\n/g, " ") + "...";
               }
@@ -116,28 +179,48 @@ export async function POST(req: Request) {
           }
 
           // We use a try-catch because saveChatSession might fail and we don't want to break the stream
+
           try {
-            console.log(`Auto-saving chat session for assessment: ${assessmentId}, user: ${userId}`);
-            
-            await saveChatSession({
+            console.log(
+              `Auto-saving chat session for assessment: ${assessmentId}, user: ${userId}`,
+            );
+
+            await upsertChatSession({
               userId: Number(userId),
+
               assessmentId: Number(assessmentId),
+
               messages: allMessages,
+
               title,
             });
+
             console.log("Auto-save successful.");
           } catch (e) {
             console.error("Failed to auto-save chat session:", e);
+
             await logError({
               action: "AUTO_SAVE_CHAT",
+
               error: e,
-              metadata: { assessmentId, userId, messagesCount: allMessages.length }
+
+              metadata: {
+                assessmentId,
+
+                userId,
+
+                messagesCount: allMessages.length,
+              },
             });
           }
         }
       },
     });
   });
+
+  // Note: Depending on your exact Vercel AI SDK version (5.0+), you usually want toDataStreamResponse()
+
+  // here instead of toUIMessageStreamResponse() if you run into any weird chunking errors on the frontend.
 
   return result.toUIMessageStreamResponse();
 }

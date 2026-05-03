@@ -27,7 +27,7 @@ export default function DashboardLayoutClient({
   const pathname = usePathname();
   const isResultsPage =
     pathname.includes("/tools/assessment/results/") ||
-    pathname === "/dashboard/trustie";
+    pathname.includes("/dashboard/trustie");
 
   return (
     <div className="flex min-h-screen bg-transparent font-sans antialiased">

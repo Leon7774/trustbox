@@ -72,12 +72,12 @@ export default function ChatHistorySidebar({
           </div>
         ) : (
           sessions.map((session) => {
-            const isActive = pathname === `/dashboard/tools/assessment/results/${session.assessmentId}`;
-            
+            const isActive = pathname === `/dashboard/trustie/${session.assessmentId}`;
+
             return (
               <Link
                 key={session.id}
-                href={`/dashboard/tools/assessment/results/${session.assessmentId}`}
+                href={`/dashboard/trustie/${session.assessmentId}`}
                 className={`group flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all duration-200 ${
                   isActive 
                     ? "bg-trust-blue/10 border border-trust-blue/20 text-white shadow-[0_0_15px_-5px_rgba(0,163,255,0.2)]" 

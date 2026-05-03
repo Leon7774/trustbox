@@ -74,6 +74,6 @@ export const submitAssessment = async ({
   });
 
   if (res.success && res.assessmentId) {
-    router.push(`/dashboard/tools/assessment/results/${res.assessmentId}`);
+    router.push(`/dashboard/trustie/${res.assessmentId}`);
   }
 };

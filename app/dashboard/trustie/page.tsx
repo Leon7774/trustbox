@@ -12,7 +12,7 @@ export default async function TrustieAdvicePage() {
   const firstName = authUser.dbUser?.fullName?.split(" ")[0] || "User";
 
   return (
-    <div className="w-full min-h-[calc(100vh-80px)] flex flex-col items-center justify-center animate-in fade-in duration-700 relative overflow-hidden">
+    <div className="w-full p-8 min-h-[calc(100vh-80px)] flex flex-col items-center justify-center animate-in fade-in duration-700 relative overflow-hidden">
       {/* Background ambient glow */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 blur-[100px] rounded-full pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/5 blur-[100px] rounded-full pointer-events-none" />
@@ -32,13 +32,23 @@ export default async function TrustieAdvicePage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="p-6 bg-surface border border-white/10 rounded-2xl text-left hover:border-trust-blue/50 transition-all cursor-pointer group">
             <ShieldCheck className="w-6 h-6 text-trust-blue mb-4 group-hover:scale-110 transition-transform" />
-            <h3 className="text-white font-bold mb-2">Review Vulnerabilities</h3>
-            <p className="text-sm text-slate-500">Pick a previous assessment from the sidebar to dive back into specific advice.</p>
+            <h3 className="text-white font-bold mb-2">
+              Review Vulnerabilities
+            </h3>
+            <p className="text-sm text-slate-500">
+              Pick a previous assessment from the sidebar to dive back into
+              specific advice.
+            </p>
           </div>
           <div className="p-6 bg-surface border border-white/10 rounded-2xl text-left hover:border-trust-blue/50 transition-all cursor-pointer group">
             <BotIcon className="w-6 h-6 text-trust-teal mb-4 group-hover:scale-110 transition-transform" />
-            <h3 className="text-white font-bold mb-2">Security Best Practices</h3>
-            <p className="text-sm text-slate-500">I can explain complex security concepts in simple terms. Select a session to start chatting.</p>
+            <h3 className="text-white font-bold mb-2">
+              Security Best Practices
+            </h3>
+            <p className="text-sm text-slate-500">
+              I can explain complex security concepts in simple terms. Select a
+              session to start chatting.
+            </p>
           </div>
         </div>
       </div>
