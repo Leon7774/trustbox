@@ -33,16 +33,19 @@ export async function submitAssessmentAction(data: {
       if (existingUser.length > 0) {
         dbUser = existingUser[0];
       } else {
-        // Else, insert the current unregistered user to the users table and grab that row
+        // Else, insert the current user to the users table
         dbUser = await db
           .insert(users)
-          .values({ anonymousId: currentId })
+          .values({ 
+            anonymousId: currentId, 
+            email: authUser.email,
+            fullName: authUser.user_metadata?.full_name || authUser.user_metadata?.name || null
+          })
           .returning()
           .then((res) => res[0]);
       }
     } else {
       // If they aren't logged in (no auth) make a new row in the users table
-      // TODO: There shouldn't be a case where users reach this page without logging in.
       dbUser = await db
         .insert(users)
         .values({ anonymousId: currentId })

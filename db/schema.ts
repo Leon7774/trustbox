@@ -14,7 +14,7 @@ import { InferSelectModel, InferInsertModel } from "drizzle-orm";
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
   anonymousId: varchar("anonymous_id", { length: 255 }).notNull().unique(),
-  email: varchar("email", { length: 255 }).notNull().unique(),
+  email: varchar("email", { length: 255 }).unique(),
   fullName: text("full_name"),
   latestSecurityScore: real("latest_security_score"),
   finishedTutorial: boolean("finished_tutorial").default(false).notNull(),
