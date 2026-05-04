@@ -4,7 +4,7 @@ import { Send, ShieldCheck, ShieldAlert } from "lucide-react";
 import { useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { useAssessmentChat } from "../_hooks/useAssessment";
+import { useAssessmentChat } from "./_hooks/useAssessment";
 
 export default function AssessmentChat({
   assessmentData,
@@ -86,8 +86,8 @@ export default function AssessmentChat({
                   Advisory System Offline
                 </p>
                 <p className="text-red-400/80 text-xs mt-1">
-                  We're experiencing heavy traffic or a quota limit. Please try
-                  again.
+                  We&apos;re experiencing heavy traffic or a quota limit. Please
+                  try again.
                 </p>
                 <button
                   onClick={handleRetry}
