@@ -14,6 +14,7 @@ import { InferSelectModel, InferInsertModel } from "drizzle-orm";
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
   anonymousId: varchar("anonymous_id", { length: 255 }).notNull().unique(),
+  email: varchar("email", { length: 255 }).notNull().unique(),
   fullName: text("full_name"),
   latestSecurityScore: real("latest_security_score"),
   finishedTutorial: boolean("finished_tutorial").default(false).notNull(),
@@ -41,9 +42,7 @@ export const chatSessions = pgTable("chat_sessions", {
   userId: integer("user_id")
     .references(() => users.id)
     .notNull(),
-  assessmentId: integer("assessment_id")
-    .references(() => assessments.id)
-    .notNull(),
+  assessmentId: integer("assessment_id").references(() => assessments.id),
   title: text("title").default("New Chat").notNull(),
   messages: jsonb("messages").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),

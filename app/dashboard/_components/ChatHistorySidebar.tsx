@@ -93,13 +93,15 @@ export default function ChatHistorySidebar({
           </div>
         ) : (
           sortedSessions.map((session) => {
-            const isActive =
-              pathname === `/dashboard/trustie/${session.assessmentId}`;
+            const chatHref = session.assessmentId 
+              ? `/dashboard/trustie/${session.assessmentId}`
+              : `/dashboard/trustie?sessionId=${session.id}`;
+            const isActive = pathname === chatHref;
 
             return (
               <Link
                 key={session.id}
-                href={`/dashboard/trustie/${session.assessmentId}`}
+                href={chatHref}
                 className={`group flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all duration-200 ${
                   isActive
                     ? "bg-trust-blue/10 border border-trust-blue/20 text-white shadow-[0_0_15px_-5px_rgba(0,163,255,0.2)]"
@@ -113,7 +115,7 @@ export default function ChatHistorySidebar({
 
                 <div className="flex-1 min-w-0">
                   <p className="truncate font-medium">
-                    {`Assessment #${session.assessmentId}`}
+                    {session.title || (session.assessmentId ? `Assessment #${session.assessmentId}` : "General Advice")}
                   </p>
                   <p className="text-[10px] text-slate-500 mt-0.5">
                     {formatDistanceToNow(new Date(session.updatedAt), {

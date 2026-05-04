@@ -4,7 +4,7 @@
  */
 import { db } from "@/db";
 import { chatSessions } from "@/db/schema";
-import { eq, and, desc } from "drizzle-orm";
+import { eq, and, desc, isNull } from "drizzle-orm";
 
 export async function upsertChatSession({
   userId,
@@ -13,7 +13,7 @@ export async function upsertChatSession({
   title,
 }: {
   userId: number;
-  assessmentId: number;
+  assessmentId?: number | null;
   messages: any[];
   title?: string;
 }): Promise<number> {
@@ -23,7 +23,9 @@ export async function upsertChatSession({
     .where(
       and(
         eq(chatSessions.userId, userId),
-        eq(chatSessions.assessmentId, assessmentId)
+        assessmentId
+          ? eq(chatSessions.assessmentId, assessmentId)
+          : isNull(chatSessions.assessmentId)
       )
     )
     .limit(1)
@@ -44,7 +46,7 @@ export async function upsertChatSession({
       .insert(chatSessions)
       .values({
         userId,
-        assessmentId,
+        assessmentId: assessmentId || null,
         messages,
         title: title || "New Chat",
       })
@@ -61,6 +63,20 @@ export async function fetchChatSession(userId: number, assessmentId: number) {
       and(
         eq(chatSessions.userId, userId),
         eq(chatSessions.assessmentId, assessmentId)
+      )
+    )
+    .limit(1)
+    .then((res) => res[0] ?? null);
+}
+
+export async function fetchGeneralChatSession(userId: number) {
+  return db
+    .select()
+    .from(chatSessions)
+    .where(
+      and(
+        eq(chatSessions.userId, userId),
+        isNull(chatSessions.assessmentId)
       )
     )
     .limit(1)

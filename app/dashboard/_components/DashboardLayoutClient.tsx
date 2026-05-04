@@ -3,7 +3,8 @@
 import { ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ShieldCheck, Bell, LogOut } from "lucide-react";
+import Image from "next/image";
+import { Bell, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import NavButtons from "./NavButtons";
 import ChatHistorySidebar from "./ChatHistorySidebar";
@@ -35,8 +36,14 @@ export default function DashboardLayoutClient({
       <aside className="fixed w-64 border-r h-screen border-trust-border bg-trust-surface/30 backdrop-blur-xl flex flex-col z-20">
         <div className="p-6 h-16 flex items-center border-b border-trust-border">
           <Link href="/dashboard" className="flex items-center gap-3 group">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-trust-blue to-trust-teal flex items-center justify-center text-white shadow-lg shadow-trust-blue/20 group-hover:shadow-trust-blue/40 transition-all">
-              <ShieldCheck className="w-5 h-5" />
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-trust-blue to-trust-teal flex items-center justify-center text-white shadow-lg shadow-trust-blue/20 group-hover:shadow-trust-blue/40 transition-all p-1.5">
+              <Image
+                src="/logo.svg"
+                alt="TrustBox Logo"
+                width={32}
+                height={32}
+                className="w-full h-full object-contain brightness-0 invert"
+              />
             </div>
             <h1 className="text-xl font-bold tracking-tight text-white">
               TrustBox
@@ -74,10 +81,6 @@ export default function DashboardLayoutClient({
             <div className="text-sm font-medium text-slate-400">Overview</div>
           )}
           <div className="flex items-center gap-4">
-            <button className="relative rounded-full bg-trust-surface border border-trust-border p-2 text-slate-400 hover:text-white hover:border-trust-blue/50 transition-all group">
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-trust-blue border-2 border-trust-dark" />
-              <Bell className="w-4 h-4 group-hover:animate-pulse" />
-            </button>
             <div className="h-9 w-9 rounded-full bg-gradient-to-br from-trust-blue to-trust-teal p-[1px] cursor-pointer hover:scale-105 transition-transform">
               <UserNav></UserNav>
             </div>

@@ -4,7 +4,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Shield, ShieldCheck, Key, Globe, Brain, CheckCircle2, LayoutDashboard, MessageSquare } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight, ShieldCheck, Key, Globe, Brain, CheckCircle2, LayoutDashboard, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { completeTutorial } from "@/app/actions/user";
 
@@ -20,7 +21,7 @@ export default function TutorialPage() {
       title: "Initial Assessment",
       description: "Establish your baseline security score with our comprehensive behavioral assessment. Start here to personalize your TrustBox experience.",
       icon: <Brain className="w-8 h-8 text-white" />,
-      href: "/dashboard/assessment",
+      href: "/dashboard/tools/assessment",
       highlight: true,
       color: "from-trust-blue to-blue-600",
       buttonText: "Start Assessment",
@@ -47,7 +48,7 @@ export default function TutorialPage() {
       title: "AI Chatbot",
       description: "Get personalized security advice and actionable tips from our intelligent security assistant.",
       icon: <MessageSquare className="w-8 h-8 text-white" />,
-      href: "/dashboard",
+      href: "/dashboard/trustie",
       highlight: false,
       color: "from-orange-500 to-red-600",
       buttonText: "Ask for Advice",
@@ -64,8 +65,14 @@ export default function TutorialPage() {
 
       <header className="px-8 py-6 flex items-center justify-between relative z-10 border-b border-trust-border/50 bg-trust-dark/50 backdrop-blur-md">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-trust-blue to-trust-teal flex items-center justify-center text-white shadow-lg shadow-trust-blue/20">
-            <Shield className="w-6 h-6" />
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-trust-blue to-trust-teal flex items-center justify-center text-white shadow-lg shadow-trust-blue/20 p-2">
+            <Image
+              src="/logo.svg"
+              alt="TrustBox Logo"
+              width={40}
+              height={40}
+              className="w-full h-full object-contain brightness-0 invert"
+            />
           </div>
           <h1 className="text-2xl font-bold tracking-tight text-white">TrustBox</h1>
         </div>

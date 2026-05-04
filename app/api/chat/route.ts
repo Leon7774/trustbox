@@ -118,6 +118,26 @@ STRICT CONSTRAINTS:
 Analyze the <user_security_profile>. Address the user directly about their specific vulnerabilities. If they scored low on a specific behavior, explain *why* it's risky and provide exact steps to fix it.`;
   }
 
+  if (data?.allAssessments && Array.isArray(data.allAssessments)) {
+    systemPrompt += `\n\n<user_full_assessment_history>\n`;
+    data.allAssessments.forEach((d: any, idx: number) => {
+      systemPrompt += `\n--- Assessment #${idx + 1} (${new Date(d.createdAt).toLocaleDateString()}) ---\n`;
+      systemPrompt += `- Score: ${d.totalScore}/100 | Risk: ${d.riskLevel}\n`;
+      if (d.rawResponses) {
+        Object.entries(d.rawResponses as Record<string, number>).forEach(([qId, score]) => {
+          const question = allQuestions.find((q) => q.id === qId);
+          if (question) {
+            systemPrompt += `- [${question.construct}] "${question.text}" | Score: ${score}%\n`;
+          }
+        });
+      }
+    });
+    systemPrompt += `\n</user_full_assessment_history>\n\n`;
+
+    systemPrompt += `YOUR MISSION:
+Analyze the <user_full_assessment_history>. Identify trends in the user's security behavior. Are they improving? Are there recurring weaknesses? Provide holistic advice based on their entire history. If they have no assessments yet, encourage them to take one to establish a baseline.`;
+  }
+
   // 4. Check for the initialization trigger safely
 
   const lastMessage = messages[messages.length - 1];
@@ -149,119 +169,78 @@ Do not wait for a prompt. Immediately greet the user (e.g., "Hi, I'm Trustie..."
         try {
           const responseMessages = event?.response?.messages ?? [];
 
-          if (data?.assessmentData) {
-            console.log(
-              "Assessment data received in API:",
+          const userId = data.assessmentData?.userId || data.userId;
+          const assessmentId = data.assessmentData?.id || null;
 
-              JSON.stringify(data.assessmentData),
-            );
+          if (!userId) {
+            console.warn("Missing userId in chat data:", data);
+            return;
+          }
 
-            const { userId, id: assessmentId } = data.assessmentData;
+          // Ensure all messages have ids and consistent format for the client
+          const allMessages = [
+            ...messages,
+            ...responseMessages.map((m) => ({
+              ...m,
+              id: "id" in m && typeof m.id === "string" ? m.id : crypto.randomUUID(),
+            })),
+          ]
+            .map(normalizeChatMessage)
+            .filter((m) => m !== null);
 
-            if (!userId || !assessmentId) {
-              console.warn(
-                "Missing userId or assessmentId in assessmentData:",
-
-                data.assessmentData,
-              );
-
-              return;
-            }
-
-            if (assessmentId === 99999) {
-              console.log(
-                "Mock assessment 99999 detected. Proceeding to save.",
-              );
-            }
-
-            // Ensure all messages have ids and consistent format for the client
-
-            // Ensure all messages have ids and consistent format for the client
-            const allMessages = [
-              ...messages,
-              ...responseMessages.map((m) => ({
-                ...m,
-                // Safely check if 'id' exists on the object, otherwise generate a real UUID
-                id:
-                  "id" in m && typeof m.id === "string"
-                    ? m.id
-                    : crypto.randomUUID(),
-              })),
-            ]
-              .map(normalizeChatMessage)
-              .filter((m) => m !== null);
-
-            // Generate title if it's the first assistant response
-
-            let title = `Assessment #${assessmentId}`;
-
-            if (
-              messages.length === 1 &&
-              (messages[0].content === "[INIT_ASSESSMENT]" ||
-                messages[0].parts?.some(
-                  (p: any) =>
-                    p.type === "text" && p.text === "[INIT_ASSESSMENT]",
-                ))
-            ) {
-              const firstAssistantMsg = responseMessages.find(
-                (m) => m.role === "assistant",
-              );
-
-              if (
-                firstAssistantMsg &&
-                firstAssistantMsg.content &&
-                Array.isArray(firstAssistantMsg.content)
-              ) {
-                const textPart = firstAssistantMsg.content.find(
-                  (p: any) => p.type === "text",
-                );
-
-                if (textPart) {
-                  title = `Assessment #${assessmentId}`;
-                }
-              } else if (
-                firstAssistantMsg &&
-                typeof firstAssistantMsg.content === "string"
-              ) {
-                title = `Assessment #${assessmentId}`;
+          // Generate title
+          let title = assessmentId ? `Assessment #${assessmentId}` : "General Security Advice";
+            
+            if (!assessmentId && messages.length > 0) {
+              const firstUserMsg = messages.find(m => m.role === 'user');
+              const text = firstUserMsg?.content || firstUserMsg?.parts?.find((p: any) => p.type === 'text')?.text || "";
+              if (text && text !== "[INIT_ASSESSMENT]") {
+                title = text.slice(0, 40) + (text.length > 40 ? "..." : "");
               }
             }
 
-            // We use a try-catch because saveChatSession might fail and we don't want to break the stream
+          if (
+            messages.length === 1 &&
+            (messages[0].content === "[INIT_ASSESSMENT]" ||
+              messages[0].parts?.some(
+                (p: any) => p.type === "text" && p.text === "[INIT_ASSESSMENT]",
+              ))
+          ) {
+            const firstAssistantMsg = responseMessages.find(
+              (m) => m.role === "assistant",
+            );
 
-            try {
-              console.log(
-                `Auto-saving chat session for assessment: ${assessmentId}, user: ${userId}`,
-              );
-
-              await upsertChatSession({
-                userId: Number(userId),
-
-                assessmentId: Number(assessmentId),
-
-                messages: allMessages,
-
-                title,
-              });
-
-              console.log("Auto-save successful.");
-            } catch (e) {
-              console.error("Failed to auto-save chat session:", e);
-
-              await logError({
-                action: "AUTO_SAVE_CHAT",
-
-                error: e,
-
-                metadata: {
-                  assessmentId,
-
-                  userId,
-
-                  messagesCount: allMessages.length,
-                },
-              });
+            if (firstAssistantMsg) {
+              title = assessmentId
+                ? `Assessment #${assessmentId}`
+                : "General Security Advice";
             }
+          }
+
+          try {
+            console.log(
+              `Auto-saving chat session for assessment: ${assessmentId}, user: ${userId}`,
+            );
+
+            await upsertChatSession({
+              userId: Number(userId),
+              assessmentId: assessmentId ? Number(assessmentId) : null,
+              messages: allMessages,
+              title,
+            });
+
+            console.log("Auto-save successful.");
+          } catch (e) {
+            console.error("Failed to auto-save chat session:", e);
+            await logError({
+              action: "AUTO_SAVE_CHAT",
+              error: e,
+              metadata: {
+                assessmentId,
+                userId,
+                messagesCount: allMessages.length,
+              },
+            });
           }
         } catch (e) {
           console.error("Failed in chat onFinish handler:", e);
