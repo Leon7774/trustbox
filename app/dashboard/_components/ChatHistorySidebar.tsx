@@ -16,10 +16,10 @@ import { getChatSessions, deleteChatSession } from "@/app/actions/chat";
 import { ChatSession } from "@/db/schema";
 import { formatDistanceToNow } from "date-fns";
 
-export default function ChatHistorySidebar({ 
+export default function ChatHistorySidebar({
   userId,
-  initialSessions = []
-}: { 
+  initialSessions = [],
+}: {
   userId: number;
   initialSessions?: ChatSession[];
 }) {
@@ -51,7 +51,7 @@ export default function ChatHistorySidebar({
   const handleDelete = async (e: React.MouseEvent, id: number) => {
     e.preventDefault();
     e.stopPropagation();
-    
+
     if (confirm("Are you sure you want to delete this chat history?")) {
       const result = await deleteChatSession(id);
       if (result.success) {
@@ -62,8 +62,7 @@ export default function ChatHistorySidebar({
   };
 
   const sortedSessions = [...sessions].sort(
-    (a, b) =>
-      new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+    (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
   );
 
   return (
@@ -77,9 +76,9 @@ export default function ChatHistorySidebar({
           <ChevronLeft className="w-4 h-4" />
           Main Dashboard
         </Button>
-        
+
         <div className="h-px bg-trust-border my-4" />
-        
+
         <h2 className="px-3 text-xs font-semibold uppercase tracking-wider text-slate-500 mb-4 flex items-center gap-2">
           <Clock className="w-3 h-3" />
           Recent Advice
@@ -94,26 +93,32 @@ export default function ChatHistorySidebar({
           </div>
         ) : (
           sortedSessions.map((session) => {
-            const isActive = pathname === `/dashboard/trustie/${session.assessmentId}`;
+            const isActive =
+              pathname === `/dashboard/trustie/${session.assessmentId}`;
 
             return (
               <Link
                 key={session.id}
                 href={`/dashboard/trustie/${session.assessmentId}`}
                 className={`group flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all duration-200 ${
-                  isActive 
-                    ? "bg-trust-blue/10 border border-trust-blue/20 text-white shadow-[0_0_15px_-5px_rgba(0,163,255,0.2)]" 
+                  isActive
+                    ? "bg-trust-blue/10 border border-trust-blue/20 text-white shadow-[0_0_15px_-5px_rgba(0,163,255,0.2)]"
                     : "text-slate-400 hover:bg-white/5 hover:text-slate-200 border border-transparent"
                 }`}
+                prefetch={false}
               >
-                <div className={`shrink-0 w-2 h-2 rounded-full ${isActive ? "bg-trust-blue shadow-[0_0_8px_rgba(0,163,255,0.8)]" : "bg-slate-700"}`} />
-                
+                <div
+                  className={`shrink-0 w-2 h-2 rounded-full ${isActive ? "bg-trust-blue shadow-[0_0_8px_rgba(0,163,255,0.8)]" : "bg-slate-700"}`}
+                />
+
                 <div className="flex-1 min-w-0">
                   <p className="truncate font-medium">
                     {`Assessment #${session.assessmentId}`}
                   </p>
                   <p className="text-[10px] text-slate-500 mt-0.5">
-                    {formatDistanceToNow(new Date(session.updatedAt), { addSuffix: true })}
+                    {formatDistanceToNow(new Date(session.updatedAt), {
+                      addSuffix: true,
+                    })}
                   </p>
                 </div>
 
@@ -132,7 +137,9 @@ export default function ChatHistorySidebar({
       <div className="mt-auto p-4 bg-trust-blue/5 border border-trust-blue/10 rounded-2xl m-2">
         <div className="flex items-center gap-2 mb-2">
           <ShieldCheck className="w-4 h-4 text-trust-blue" />
-          <span className="text-[11px] font-bold uppercase tracking-tighter text-trust-blue">Trustie Premium</span>
+          <span className="text-[11px] font-bold uppercase tracking-tighter text-trust-blue">
+            Trustie Premium
+          </span>
         </div>
         <p className="text-[10px] text-slate-400 leading-tight">
           Your security advisor remembers your context across sessions.
