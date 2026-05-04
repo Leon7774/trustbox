@@ -33,10 +33,7 @@ export default async function LoginLayout({
 
           <div className="flex items-center gap-4">
             {authUser ? (
-              <UserButton
-                email={authUser.name || authUser.email || "User"}
-                pastAssessments={[]}
-              />
+              <UserButton />
             ) : (
               <Link
                 href="/login"
