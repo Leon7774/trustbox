@@ -24,14 +24,19 @@ export function UserProvider({
   serverUser: AppUser | null;
 }) {
   const [user, setUser] = useState<AppUser | null>(serverUser);
+  const [prevServerUser, setPrevServerUser] = useState<AppUser | null>(
+    serverUser,
+  );
+
   const router = useRouter();
   const supabase = createClient();
 
-  // Sync state with server user so updates via Server Actions & router.refresh()
-  // propagate to the client context immediately.
-  useEffect(() => {
+  // Sync state with server user WITHOUT an effect.
+  // This updates the state during the render phase, avoiding the double-render trap.
+  if (serverUser !== prevServerUser) {
+    setPrevServerUser(serverUser);
     setUser(serverUser);
-  }, [serverUser]);
+  }
 
   useEffect(() => {
     // Listen for auth events (login, logout, token refresh)
@@ -50,8 +55,7 @@ export function UserProvider({
         );
       }
 
-      // Industry Standard: Force Next.js to re-evaluate Server Components
-      // when the auth state changes so protected routes update instantly.
+      // Force Next.js to re-evaluate Server Components
       if (event === "SIGNED_IN" || event === "SIGNED_OUT") {
         router.refresh();
       }
