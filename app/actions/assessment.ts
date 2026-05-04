@@ -137,18 +137,20 @@ export async function getAssessmentsAction(
 
     const offset = (page - 1) * pageSize;
 
-    const data = await db
-      .select()
-      .from(assessments)
-      .where(eq(assessments.userId, dbUser.id))
-      .orderBy(desc(assessments.createdAt))
-      .limit(pageSize)
-      .offset(offset);
-
-    const [countResult] = await db
-      .select({ count: sql<number>`count(*)` })
-      .from(assessments)
-      .where(eq(assessments.userId, dbUser.id));
+    const [data, countResult] = await Promise.all([
+      db
+        .select()
+        .from(assessments)
+        .where(eq(assessments.userId, dbUser.id))
+        .orderBy(desc(assessments.createdAt))
+        .limit(pageSize)
+        .offset(offset),
+      db
+        .select({ count: sql<number>`count(*)` })
+        .from(assessments)
+        .where(eq(assessments.userId, dbUser.id))
+        .then(res => res[0])
+    ]);
 
     const totalCount = Number(countResult?.count || 0);
 

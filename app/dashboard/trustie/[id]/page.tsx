@@ -14,28 +14,32 @@ export default async function AssessmentChatPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const authUser = await getAuthUser();
 
-  // Developer Bypass if Supabase is asleep
-  let assessment;
-  if (id === "mock-dev-id" && process.env.NODE_ENV === "development") {
-    assessment = {
-      id: 99999,
-      userId: authUser?.dbUser?.id || 1,
-      behavioralScore: 85,
-      totalScore: 85,
-      riskLevel: "Low",
-      rawResponses: { B1: 100, B2: 75, B3: 100, B4: 50 },
-    };
-  } else {
-    assessment = await db
-      .select()
-      .from(assessments)
-      .where(eq(assessments.id, parseInt(id)))
-      .then((res) => res[0]);
-  }
+  // Parallelize Auth and Assessment fetch
+  const [authUser, assessment] = await Promise.all([
+    getAuthUser(),
+    id === "mock-dev-id" && process.env.NODE_ENV === "development"
+      ? Promise.resolve({
+          id: 99999,
+          userId: 1, // Will be updated below if authUser exists
+          behavioralScore: 85,
+          totalScore: 85,
+          riskLevel: "Low",
+          rawResponses: { B1: 100, B2: 75, B3: 100, B4: 50 },
+        })
+      : db
+          .select()
+          .from(assessments)
+          .where(eq(assessments.id, parseInt(id)))
+          .then((res) => res[0]),
+  ]);
 
   if (!assessment) return notFound();
+
+  // If mock, ensure userId matches authUser
+  if (id === "mock-dev-id" && authUser?.dbUser) {
+    (assessment as any).userId = authUser.dbUser.id;
+  }
 
   // Fetch existing chat session if any
   const chatSession = authUser?.dbUser

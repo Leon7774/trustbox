@@ -18,30 +18,24 @@ export default async function TrustieAdvicePage({
     redirect("/login");
   }
 
-  // Fetch all previous assessments for context
-  const allUserAssessments = await db
-    .select()
-    .from(assessments)
-    .where(eq(assessments.userId, authUser.dbUser.id))
-    .orderBy(desc(assessments.createdAt));
+  const userId = authUser.dbUser.id;
 
-  // Fetch specific or latest general chat session
-  let chatSession;
-  if (sessionId) {
-    chatSession = await db
+  // Fetch assessments and chat session in parallel
+  const [allUserAssessments, chatSession] = await Promise.all([
+    db
       .select()
-      .from(chatSessions)
-      .where(
-        and(
-          eq(chatSessions.userId, authUser.dbUser.id),
-          eq(chatSessions.id, parseInt(sessionId))
-        )
-      )
-      .limit(1)
-      .then((res) => res[0]);
-  } else {
-    chatSession = await fetchGeneralChatSession(authUser.dbUser.id);
-  }
+      .from(assessments)
+      .where(eq(assessments.userId, userId))
+      .orderBy(desc(assessments.createdAt)),
+    sessionId
+      ? db
+          .select()
+          .from(chatSessions)
+          .where(and(eq(chatSessions.userId, userId), eq(chatSessions.id, parseInt(sessionId))))
+          .limit(1)
+          .then((res) => res[0])
+      : fetchGeneralChatSession(userId),
+  ]);
   const initialMessages = chatSession ? (chatSession.messages as any[]) : [];
 
   const firstName = authUser.dbUser.fullName?.split(" ")[0] || "User";
