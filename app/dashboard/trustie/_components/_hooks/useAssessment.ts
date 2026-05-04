@@ -51,24 +51,12 @@ export function useAssessmentChat({
       if (!textContent) return null;
 
       return {
-        id: msg.id || Math.random().toString(36).substring(7),
-        role: msg.role,
-        parts: [{ type: "text", text: textContent }],
+        id: msg.id || crypto.randomUUID(), // Stop using Math.random()!
+        role: msg.role as "user" | "assistant" | "system" | "data",
+        parts: [{ type: "text" as const, text: textContent }],
       };
     })
-    .filter((m) => m !== null) // Nuke the nulls
-    .map((m, index, arr) => {
-      const duplicateCount = arr
-        .slice(0, index)
-        .filter((prev) => prev.id === m.id).length;
-
-      if (duplicateCount === 0) return m;
-
-      return {
-        ...m,
-        id: `${m.id}-${duplicateCount}`,
-      };
-    });
+    .filter((m) => m !== null) as any[]; // You can cast the final output or let TS infer the narrowed types
 
   // 2. Pass the sanitized array to useChat
   const { messages, status, sendMessage, error, regenerate } = useChat({
