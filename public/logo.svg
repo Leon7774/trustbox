@@ -1,79 +1,264 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 2000 2000">
-  <defs>
-    <style>
-      .cls-1 {
-        clip-path: url(#clippath-6);
-      }
-
-      .cls-2 {
-        clip-path: url(#clippath-4);
-      }
-
-      .cls-3 {
-        fill: none;
-      }
-
-      .cls-4 {
-        clip-path: url(#clippath-1);
-      }
-
-      .cls-5 {
-        clip-path: url(#clippath-5);
-      }
-
-      .cls-6 {
-        clip-path: url(#clippath-3);
-      }
-
-      .cls-7 {
-        fill: #c1ff72;
-      }
-
-      .cls-8 {
-        clip-path: url(#clippath-2);
-      }
-
-      .cls-9 {
-        clip-path: url(#clippath);
-      }
-    </style>
-    <clipPath id="clippath">
-      <rect class="cls-3" x="0" width="2000" height="2000"/>
-    </clipPath>
-    <clipPath id="clippath-1">
-      <rect class="cls-3" x="-1.28" y="-2.94" width="2005.89" height="2005.89"/>
-    </clipPath>
-    <clipPath id="clippath-2">
-      <rect class="cls-3" x="0" width="2000" height="2000"/>
-    </clipPath>
-    <clipPath id="clippath-3">
-      <rect class="cls-3" x="547.16" y="550.2" width="905.69" height="899.61"/>
-    </clipPath>
-    <clipPath id="clippath-4">
-      <polygon class="cls-3" points="244.61 993.21 1005.37 232.46 1769.36 996.44 1008.6 1757.22 244.61 993.21"/>
-    </clipPath>
-    <clipPath id="clippath-5">
-      <polygon class="cls-3" points="244.61 993.21 1005.37 232.46 1769.36 996.44 1008.6 1757.22 244.61 993.21"/>
-    </clipPath>
-    <clipPath id="clippath-6">
-      <polygon class="cls-3" points="244.61 993.21 1005.37 232.46 1769.36 996.44 1008.6 1757.22 244.61 993.21"/>
-    </clipPath>
-  </defs>
-  <g class="cls-9">
-    <g class="cls-4">
-      <g class="cls-8">
-        <path class="cls-7" d="M0,0h2000v2000H0V0h0Z"/>
-      </g>
-    </g>
-  </g>
-  <g class="cls-6">
-    <g class="cls-2">
-      <g class="cls-5">
-        <g class="cls-1">
-          <path d="M1449.81,677.59c-197.98,362.17-86.64,557.13-2.68,641.11l-130.5,130.47c-67.58-67.58-183.52-222.98-158.37-474.81l-465.97,466-130.84-130.81,466-466c-251.83,25.14-407.23-90.8-474.81-158.37l130.5-130.5c83.98,83.98,278.94,195.32,641.09-2.66l125.58,125.57Z"/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 542 309" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;">
+    <g id="Artboard1" transform="matrix(1,0,0,1,0.468968,-122.687)">
+        <rect x="-0.469" y="122.687" width="541.646" height="308.306" style="fill:none;"/>
+        <g transform="matrix(1.41843,0,0,1.41843,-34.6085,-11.4773)">
+            <g>
+                <g transform="matrix(0.980418,-0.179495,0.179495,0.980418,293.893,149.349)">
+                    <path d="M4.895,19.319C24.412,4.225 43.935,4.226 63.452,19.317" style="fill:none;fill-rule:nonzero;stroke:url(#_Linear1);stroke-width:16px;"/>
+                </g>
+                <g>
+                    <g>
+                        <clipPath id="_clip2">
+                            <path d="M361.086,135.207L398.703,153.57L379.465,192.98L341.848,174.617L361.086,135.207Z"/>
+                        </clipPath>
+                        <g clip-path="url(#_clip2)">
+                            <g>
+                                <clipPath id="_clip3">
+                                    <path d="M361.086,135.207L402.188,155.27L382.121,196.371L341.02,176.309L361.086,135.207Z"/>
+                                </clipPath>
+                                <g clip-path="url(#_clip3)">
+                                    <g>
+                                        <clipPath id="_clip4">
+                                            <path d="M364.453,136.852L395.422,151.969C397.281,152.875 398.051,155.117 397.145,156.977L381.316,189.402C380.41,191.262 378.164,192.035 376.305,191.125L345.336,176.008C343.477,175.102 342.707,172.855 343.613,170.996L359.441,138.574C360.348,136.715 362.594,135.941 364.453,136.852Z"/>
+                                        </clipPath>
+                                        <g clip-path="url(#_clip4)">
+                                            <g transform="matrix(0.895695,0.437229,-0.437229,0.895695,361.084,135.206)">
+                                                <path d="M3.761,0.001L38.336,0.001C40.412,-0 42.092,1.682 42.094,3.758L42.094,39.959C42.095,42.035 40.411,43.721 38.334,43.718L3.758,43.718C1.683,43.72 0.001,42.033 -0,39.958L0.001,3.76C-0,1.684 1.684,-0.001 3.761,0.001Z" style="fill:none;fill-rule:nonzero;stroke:url(#_Linear5);stroke-width:30.08px;"/>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+                <g transform="matrix(1,0,0,1,268.527,201.7)">
+                    <g>
+                        <g>
+                            <g>
+                                <g>
+                                    <g>
+                                        <clipPath id="_clip6">
+                                            <path d="M53.598,0.508L91.496,40.355L38.262,90.988L0.359,51.137L53.598,0.508Z"/>
+                                        </clipPath>
+                                        <g clip-path="url(#_clip6)">
+                                            <g>
+                                                <clipPath id="_clip7">
+                                                    <path d="M58.762,5.938L86.332,34.926C89.184,37.922 89.066,42.668 86.066,45.52L43.766,85.754C40.766,88.605 36.02,88.488 33.168,85.488L5.598,56.5C2.746,53.5 2.863,48.758 5.863,45.906L48.164,5.672C51.164,2.82 55.91,2.938 58.762,5.938Z"/>
+                                                </clipPath>
+                                                <g clip-path="url(#_clip7)">
+                                                    <g transform="matrix(1,0,0,1,3,3)">
+                                                        <g>
+                                                            <g>
+                                                                <g>
+                                                                    <clipPath id="_clip8">
+                                                                        <path d="M50.598,-2.492L88.496,37.355L35.262,87.988L-2.641,48.137L50.598,-2.492Z"/>
+                                                                    </clipPath>
+                                                                    <g clip-path="url(#_clip8)">
+                                                                        <g>
+                                                                            <clipPath id="_clip9">
+                                                                                <path d="M55.762,2.938L83.332,31.926C86.184,34.922 86.066,39.668 83.066,42.52L40.766,82.754C37.766,85.605 33.02,85.488 30.168,82.488L2.598,53.5C-0.254,50.5 -0.137,45.758 2.863,42.906L45.164,2.672C48.164,-0.18 52.91,-0.063 55.762,2.938Z"/>
+                                                                            </clipPath>
+                                                                            <g clip-path="url(#_clip9)">
+                                                                                <path d="M50.598,-2.492L88.496,37.355L35.262,87.988L-2.641,48.137L50.598,-2.492Z" style="fill:rgb(133,183,171);fill-rule:nonzero;"/>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </g>
+                                                            </g>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+                <g transform="matrix(1,0,0,1,170.098,184)">
+                    <g>
+                        <g>
+                            <g>
+                                <g>
+                                    <g>
+                                        <clipPath id="_clip10">
+                                            <path d="M51.711,78.277L1.02,78.18L1.176,0.363L51.863,0.465L51.711,78.277Z"/>
+                                        </clipPath>
+                                        <g clip-path="url(#_clip10)">
+                                            <g>
+                                                <clipPath id="_clip11">
+                                                    <path d="M44.215,78.266L8.516,78.191C4.375,78.184 1.027,74.82 1.035,70.684L1.16,8C1.168,3.863 4.531,0.512 8.672,0.52L44.367,0.594C48.508,0.602 51.859,3.965 51.848,8.102L51.723,70.785C51.715,74.922 48.355,78.273 44.215,78.266Z"/>
+                                                </clipPath>
+                                                <g clip-path="url(#_clip11)">
+                                                    <g transform="matrix(1,0,0,1,1,2.8422e-14)">
+                                                        <g>
+                                                            <g>
+                                                                <g>
+                                                                    <clipPath id="_clip12">
+                                                                        <path d="M50.711,78.277L0.02,78.18L0.176,0.363L50.863,0.465L50.711,78.277Z"/>
+                                                                    </clipPath>
+                                                                    <g clip-path="url(#_clip12)">
+                                                                        <g>
+                                                                            <clipPath id="_clip13">
+                                                                                <path d="M43.215,78.266L7.516,78.191C3.375,78.184 0.027,74.82 0.035,70.684L0.16,8C0.168,3.863 3.531,0.512 7.672,0.52L43.367,0.594C47.508,0.602 50.859,3.965 50.848,8.102L50.723,70.785C50.715,74.922 47.355,78.273 43.215,78.266Z"/>
+                                                                            </clipPath>
+                                                                            <g clip-path="url(#_clip13)">
+                                                                                <path d="M50.711,78.277L0.02,78.18L0.176,0.563L50.863,0.664L50.711,78.277Z" style="fill:rgb(133,183,171);fill-rule:nonzero;"/>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </g>
+                                                            </g>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+                <g transform="matrix(1,0,0,1,180,112)">
+                    <g>
+                        <g>
+                            <g>
+                                <g>
+                                    <g>
+                                        <clipPath id="_clip14">
+                                            <path d="M35.23,90.934L0.438,54.074L57.023,0.66L91.816,37.52L35.23,90.934Z"/>
+                                        </clipPath>
+                                        <g clip-path="url(#_clip14)">
+                                            <g>
+                                                <clipPath id="_clip15">
+                                                    <path d="M30.086,85.484L5.582,59.523C2.742,56.516 2.879,51.77 5.887,48.93L51.469,5.902C54.48,3.063 59.223,3.199 62.066,6.207L86.57,32.168C89.41,35.18 89.273,39.922 86.262,42.762L40.684,85.789C37.672,88.633 32.93,88.496 30.086,85.484Z"/>
+                                                </clipPath>
+                                                <g clip-path="url(#_clip15)">
+                                                    <g transform="matrix(1,0,0,1,3,3)">
+                                                        <g>
+                                                            <g>
+                                                                <g>
+                                                                    <clipPath id="_clip16">
+                                                                        <path d="M32.23,87.934L-2.563,51.074L54.023,-2.34L88.816,34.52L32.23,87.934Z"/>
+                                                                    </clipPath>
+                                                                    <g clip-path="url(#_clip16)">
+                                                                        <g>
+                                                                            <clipPath id="_clip17">
+                                                                                <path d="M27.086,82.484L2.582,56.523C-0.258,53.516 -0.121,48.77 2.887,45.93L48.469,2.902C51.48,0.063 56.223,0.199 59.066,3.207L83.57,29.168C86.41,32.18 86.273,36.922 83.262,39.762L37.684,82.789C34.672,85.633 29.93,85.496 27.086,82.484Z"/>
+                                                                            </clipPath>
+                                                                            <g clip-path="url(#_clip17)">
+                                                                                <path d="M32.23,87.934L-2.563,51.074L53.879,-2.203L88.676,34.656L32.23,87.934Z" style="fill:rgb(133,183,171);fill-rule:nonzero;"/>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </g>
+                                                            </g>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+                <g>
+                    <g>
+                        <clipPath id="_clip18">
+                            <path d="M180.449,197.801L273.871,110.918L360.754,204.336L267.332,291.223L180.449,197.801Z"/>
+                        </clipPath>
+                        <g clip-path="url(#_clip18)">
+                            <g>
+                                <clipPath id="_clip19">
+                                    <path d="M180.449,197.801L275.359,109.531L363.629,204.441L268.719,292.711L180.449,197.801Z"/>
+                                </clipPath>
+                                <g clip-path="url(#_clip19)">
+                                    <g>
+                                        <clipPath id="_clip20">
+                                            <path d="M185.938,192.695L268.516,115.895C271.547,113.074 276.289,113.246 279.109,116.277L355.699,198.633C358.52,201.664 358.348,206.406 355.316,209.227L272.738,286.027C269.707,288.844 264.965,288.672 262.145,285.641L185.555,203.289C182.734,200.258 182.906,195.516 185.938,192.695Z"/>
+                                        </clipPath>
+                                        <g clip-path="url(#_clip20)">
+                                            <g transform="matrix(0.729854,-0.678786,0.678786,0.729854,180.448,197.801)">
+                                                <path d="M7.521,-0L120.665,-0.001C124.819,-0.002 128.186,3.365 128.186,7.519L128.184,120.355C128.185,124.509 124.819,127.875 120.665,127.876L7.521,127.877C3.369,127.875 0.003,124.508 0.002,120.354L0.002,7.521C0.001,3.367 3.367,0.001 7.521,-0Z" style="fill:none;fill-rule:nonzero;stroke:url(#_Linear21);stroke-width:60.16px;"/>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+                <g transform="matrix(1,0,0,1,35.7351,185)">
+                    <g>
+                        <g>
+                            <g>
+                                <g>
+                                    <g>
+                                        <clipPath id="_clip22">
+                                            <path d="M1.129,0.297L51.816,0.539L51.449,78.352L0.762,78.113L1.129,0.297Z"/>
+                                        </clipPath>
+                                        <g clip-path="url(#_clip22)">
+                                            <g>
+                                                <clipPath id="_clip23">
+                                                    <path d="M8.625,0.336L44.32,0.504C48.461,0.523 51.801,3.895 51.781,8.035L51.484,70.715C51.465,74.855 48.094,78.195 43.953,78.176L8.258,78.004C4.117,77.984 0.777,74.613 0.797,70.473L1.094,7.793C1.113,3.652 4.484,0.313 8.625,0.336Z"/>
+                                                </clipPath>
+                                                <g clip-path="url(#_clip23)">
+                                                    <g>
+                                                        <g>
+                                                            <g>
+                                                                <g>
+                                                                    <clipPath id="_clip24">
+                                                                        <path d="M1.129,0.297L51.816,0.539L51.449,78.352L0.762,78.113L1.129,0.297Z"/>
+                                                                    </clipPath>
+                                                                    <g clip-path="url(#_clip24)">
+                                                                        <g>
+                                                                            <clipPath id="_clip25">
+                                                                                <path d="M8.625,0.336L44.32,0.504C48.461,0.523 51.801,3.895 51.781,8.035L51.484,70.715C51.465,74.855 48.094,78.195 43.953,78.176L8.258,78.004C4.117,77.984 0.777,74.613 0.797,70.473L1.094,7.793C1.113,3.652 4.484,0.313 8.625,0.336Z"/>
+                                                                            </clipPath>
+                                                                            <g clip-path="url(#_clip25)">
+                                                                                <path d="M1.129,0.297L51.816,0.539L51.449,78.152L0.762,77.914L1.129,0.297Z" style="fill:rgb(133,183,171);fill-rule:nonzero;"/>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </g>
+                                                            </g>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+                <g>
+                    <g>
+                        <clipPath id="_clip26">
+                            <path d="M68.637,157.859L190.285,157.859C194.426,157.859 197.781,161.215 197.781,165.355L197.781,283.645C197.781,287.781 194.426,291.137 190.285,291.137L68.637,291.137C64.496,291.137 61.141,287.781 61.141,283.645L61.141,165.355C61.141,161.215 64.496,157.859 68.637,157.859Z"/>
+                        </clipPath>
+                        <g clip-path="url(#_clip26)">
+                            <g transform="matrix(0.996714,2.85927e-08,-2.85927e-08,0.996714,61.1383,157.859)">
+                                <path d="M7.523,0.001L129.573,0.001C133.727,0.001 137.093,3.367 137.093,7.522L137.093,126.201C137.093,130.351 133.727,133.718 129.573,133.718L7.523,133.718C3.369,133.718 0.002,130.351 0.002,126.201L0.002,7.522C0.002,3.367 3.369,0.001 7.523,0.001Z" style="fill:none;fill-rule:nonzero;stroke:url(#_Linear27);stroke-width:60.16px;"/>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
         </g>
-      </g>
     </g>
-  </g>
+    <defs>
+        <linearGradient id="_Linear1" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(78.9153,1.77636e-15,-1.77636e-15,78.9153,-4.26453,12.824)"><stop offset="0" style="stop-color:rgb(10,226,245);stop-opacity:1"/><stop offset="0.08" style="stop-color:rgb(13,226,242);stop-opacity:1"/><stop offset="0.09" style="stop-color:rgb(13,226,242);stop-opacity:1"/><stop offset="0.13" style="stop-color:rgb(18,226,238);stop-opacity:1"/><stop offset="0.13" style="stop-color:rgb(18,226,237);stop-opacity:1"/><stop offset="0.14" style="stop-color:rgb(19,227,236);stop-opacity:1"/><stop offset="0.17" style="stop-color:rgb(23,227,233);stop-opacity:1"/><stop offset="0.18" style="stop-color:rgb(23,227,232);stop-opacity:1"/><stop offset="0.2" style="stop-color:rgb(26,227,229);stop-opacity:1"/><stop offset="0.21" style="stop-color:rgb(27,227,229);stop-opacity:1"/><stop offset="0.22" style="stop-color:rgb(28,228,228);stop-opacity:1"/><stop offset="0.23" style="stop-color:rgb(28,228,227);stop-opacity:1"/><stop offset="0.24" style="stop-color:rgb(30,228,225);stop-opacity:1"/><stop offset="0.29" style="stop-color:rgb(35,228,220);stop-opacity:1"/><stop offset="0.32" style="stop-color:rgb(38,229,217);stop-opacity:1"/><stop offset="0.33" style="stop-color:rgb(39,229,216);stop-opacity:1"/><stop offset="0.34" style="stop-color:rgb(40,229,216);stop-opacity:1"/><stop offset="0.36" style="stop-color:rgb(43,229,213);stop-opacity:1"/><stop offset="0.37" style="stop-color:rgb(43,229,212);stop-opacity:1"/><stop offset="0.38" style="stop-color:rgb(44,230,212);stop-opacity:1"/><stop offset="0.45" style="stop-color:rgb(52,230,204);stop-opacity:1"/><stop offset="0.45" style="stop-color:rgb(52,231,203);stop-opacity:1"/><stop offset="0.46" style="stop-color:rgb(53,231,203);stop-opacity:1"/><stop offset="0.52" style="stop-color:rgb(60,231,196);stop-opacity:1"/><stop offset="0.53" style="stop-color:rgb(61,232,195);stop-opacity:1"/><stop offset="0.58" style="stop-color:rgb(66,232,190);stop-opacity:1"/><stop offset="0.59" style="stop-color:rgb(67,232,190);stop-opacity:1"/><stop offset="0.59" style="stop-color:rgb(67,232,189);stop-opacity:1"/><stop offset="0.6" style="stop-color:rgb(68,232,188);stop-opacity:1"/><stop offset="0.66" style="stop-color:rgb(74,233,182);stop-opacity:1"/><stop offset="0.66" style="stop-color:rgb(75,233,182);stop-opacity:1"/><stop offset="0.7" style="stop-color:rgb(79,234,177);stop-opacity:1"/><stop offset="0.73" style="stop-color:rgb(82,234,174);stop-opacity:1"/><stop offset="0.74" style="stop-color:rgb(83,234,173);stop-opacity:1"/><stop offset="0.77" style="stop-color:rgb(86,234,171);stop-opacity:1"/><stop offset="0.77" style="stop-color:rgb(86,235,170);stop-opacity:1"/><stop offset="0.78" style="stop-color:rgb(87,235,169);stop-opacity:1"/><stop offset="0.79" style="stop-color:rgb(88,235,169);stop-opacity:1"/><stop offset="0.81" style="stop-color:rgb(91,235,166);stop-opacity:1"/><stop offset="0.82" style="stop-color:rgb(91,235,165);stop-opacity:1"/><stop offset="0.83" style="stop-color:rgb(92,235,164);stop-opacity:1"/><stop offset="0.84" style="stop-color:rgb(93,235,164);stop-opacity:1"/><stop offset="0.87" style="stop-color:rgb(96,236,160);stop-opacity:1"/><stop offset="0.91" style="stop-color:rgb(101,236,156);stop-opacity:1"/><stop offset="0.91" style="stop-color:rgb(101,236,156);stop-opacity:1"/><stop offset="1" style="stop-color:rgb(102,236,154);stop-opacity:1"/></linearGradient>
+        <linearGradient id="_Linear5" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(74.5878,-3.11889e-07,3.11889e-07,74.5878,-16.247,21.8585)"><stop offset="0" style="stop-color:rgb(10,226,245);stop-opacity:1"/><stop offset="0.22" style="stop-color:rgb(11,226,244);stop-opacity:1"/><stop offset="0.22" style="stop-color:rgb(11,226,244);stop-opacity:1"/><stop offset="0.23" style="stop-color:rgb(13,226,242);stop-opacity:1"/><stop offset="0.23" style="stop-color:rgb(13,226,242);stop-opacity:1"/><stop offset="0.25" style="stop-color:rgb(16,226,239);stop-opacity:1"/><stop offset="0.25" style="stop-color:rgb(16,226,239);stop-opacity:1"/><stop offset="0.26" style="stop-color:rgb(18,226,238);stop-opacity:1"/><stop offset="0.27" style="stop-color:rgb(18,226,237);stop-opacity:1"/><stop offset="0.27" style="stop-color:rgb(20,227,236);stop-opacity:1"/><stop offset="0.28" style="stop-color:rgb(20,227,235);stop-opacity:1"/><stop offset="0.28" style="stop-color:rgb(21,227,234);stop-opacity:1"/><stop offset="0.29" style="stop-color:rgb(21,227,234);stop-opacity:1"/><stop offset="0.29" style="stop-color:rgb(23,227,233);stop-opacity:1"/><stop offset="0.3" style="stop-color:rgb(23,227,232);stop-opacity:1"/><stop offset="0.3" style="stop-color:rgb(25,227,231);stop-opacity:1"/><stop offset="0.31" style="stop-color:rgb(25,227,230);stop-opacity:1"/><stop offset="0.31" style="stop-color:rgb(26,227,229);stop-opacity:1"/><stop offset="0.32" style="stop-color:rgb(27,227,229);stop-opacity:1"/><stop offset="0.32" style="stop-color:rgb(27,228,228);stop-opacity:1"/><stop offset="0.33" style="stop-color:rgb(28,228,227);stop-opacity:1"/><stop offset="0.34" style="stop-color:rgb(30,228,226);stop-opacity:1"/><stop offset="0.34" style="stop-color:rgb(30,228,225);stop-opacity:1"/><stop offset="0.36" style="stop-color:rgb(34,228,221);stop-opacity:1"/><stop offset="0.37" style="stop-color:rgb(35,228,221);stop-opacity:1"/><stop offset="0.37" style="stop-color:rgb(35,228,220);stop-opacity:1"/><stop offset="0.39" style="stop-color:rgb(39,229,216);stop-opacity:1"/><stop offset="0.4" style="stop-color:rgb(40,229,216);stop-opacity:1"/><stop offset="0.4" style="stop-color:rgb(41,229,215);stop-opacity:1"/><stop offset="0.41" style="stop-color:rgb(41,229,214);stop-opacity:1"/><stop offset="0.41" style="stop-color:rgb(42,229,214);stop-opacity:1"/><stop offset="0.41" style="stop-color:rgb(42,229,213);stop-opacity:1"/><stop offset="0.42" style="stop-color:rgb(44,229,212);stop-opacity:1"/><stop offset="0.43" style="stop-color:rgb(44,230,211);stop-opacity:1"/><stop offset="0.44" style="stop-color:rgb(46,230,209);stop-opacity:1"/><stop offset="0.44" style="stop-color:rgb(47,230,209);stop-opacity:1"/><stop offset="0.45" style="stop-color:rgb(48,230,208);stop-opacity:1"/><stop offset="0.45" style="stop-color:rgb(48,230,208);stop-opacity:1"/><stop offset="0.46" style="stop-color:rgb(49,230,206);stop-opacity:1"/><stop offset="0.47" style="stop-color:rgb(51,230,204);stop-opacity:1"/><stop offset="0.47" style="stop-color:rgb(52,230,204);stop-opacity:1"/><stop offset="0.5" style="stop-color:rgb(56,231,199);stop-opacity:1"/><stop offset="0.53" style="stop-color:rgb(61,232,195);stop-opacity:1"/><stop offset="0.54" style="stop-color:rgb(63,232,193);stop-opacity:1"/><stop offset="0.54" style="stop-color:rgb(63,232,193);stop-opacity:1"/><stop offset="0.56" style="stop-color:rgb(66,232,190);stop-opacity:1"/><stop offset="0.57" style="stop-color:rgb(68,232,188);stop-opacity:1"/><stop offset="0.57" style="stop-color:rgb(69,232,188);stop-opacity:1"/><stop offset="0.58" style="stop-color:rgb(69,233,187);stop-opacity:1"/><stop offset="0.59" style="stop-color:rgb(71,233,185);stop-opacity:1"/><stop offset="0.6" style="stop-color:rgb(72,233,184);stop-opacity:1"/><stop offset="0.61" style="stop-color:rgb(74,233,183);stop-opacity:1"/><stop offset="0.61" style="stop-color:rgb(74,233,182);stop-opacity:1"/><stop offset="0.62" style="stop-color:rgb(76,233,181);stop-opacity:1"/><stop offset="0.62" style="stop-color:rgb(76,233,180);stop-opacity:1"/><stop offset="0.63" style="stop-color:rgb(77,233,180);stop-opacity:1"/><stop offset="0.63" style="stop-color:rgb(78,234,178);stop-opacity:1"/><stop offset="0.64" style="stop-color:rgb(79,234,178);stop-opacity:1"/><stop offset="0.64" style="stop-color:rgb(79,234,177);stop-opacity:1"/><stop offset="0.65" style="stop-color:rgb(81,234,176);stop-opacity:1"/><stop offset="0.65" style="stop-color:rgb(81,234,175);stop-opacity:1"/><stop offset="0.68" style="stop-color:rgb(85,234,171);stop-opacity:1"/><stop offset="0.68" style="stop-color:rgb(86,235,171);stop-opacity:1"/><stop offset="0.68" style="stop-color:rgb(86,235,170);stop-opacity:1"/><stop offset="0.71" style="stop-color:rgb(90,235,166);stop-opacity:1"/><stop offset="0.71" style="stop-color:rgb(92,235,165);stop-opacity:1"/><stop offset="0.72" style="stop-color:rgb(92,235,165);stop-opacity:1"/><stop offset="0.73" style="stop-color:rgb(93,235,163);stop-opacity:1"/><stop offset="0.74" style="stop-color:rgb(95,236,161);stop-opacity:1"/><stop offset="0.75" style="stop-color:rgb(97,236,160);stop-opacity:1"/><stop offset="0.75" style="stop-color:rgb(97,236,160);stop-opacity:1"/><stop offset="0.77" style="stop-color:rgb(100,236,157);stop-opacity:1"/><stop offset="0.77" style="stop-color:rgb(100,236,157);stop-opacity:1"/><stop offset="1" style="stop-color:rgb(102,236,154);stop-opacity:1"/></linearGradient>
+        <linearGradient id="_Linear21" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(249.242,3.66892e-06,-3.66892e-06,249.242,-60.5274,63.9376)"><stop offset="0" style="stop-color:rgb(10,226,245);stop-opacity:1"/><stop offset="0.25" style="stop-color:rgb(12,226,243);stop-opacity:1"/><stop offset="0.25" style="stop-color:rgb(12,226,243);stop-opacity:1"/><stop offset="0.26" style="stop-color:rgb(14,226,241);stop-opacity:1"/><stop offset="0.27" style="stop-color:rgb(15,226,240);stop-opacity:1"/><stop offset="0.28" style="stop-color:rgb(17,226,238);stop-opacity:1"/><stop offset="0.28" style="stop-color:rgb(17,226,238);stop-opacity:1"/><stop offset="0.29" style="stop-color:rgb(19,226,236);stop-opacity:1"/><stop offset="0.29" style="stop-color:rgb(19,227,236);stop-opacity:1"/><stop offset="0.3" style="stop-color:rgb(22,227,234);stop-opacity:1"/><stop offset="0.31" style="stop-color:rgb(22,227,233);stop-opacity:1"/><stop offset="0.34" style="stop-color:rgb(27,227,228);stop-opacity:1"/><stop offset="0.36" style="stop-color:rgb(31,228,224);stop-opacity:1"/><stop offset="0.37" style="stop-color:rgb(33,228,223);stop-opacity:1"/><stop offset="0.37" style="stop-color:rgb(33,228,222);stop-opacity:1"/><stop offset="0.38" style="stop-color:rgb(34,228,221);stop-opacity:1"/><stop offset="0.38" style="stop-color:rgb(36,228,220);stop-opacity:1"/><stop offset="0.39" style="stop-color:rgb(36,229,219);stop-opacity:1"/><stop offset="0.41" style="stop-color:rgb(40,229,215);stop-opacity:1"/><stop offset="0.43" style="stop-color:rgb(43,229,212);stop-opacity:1"/><stop offset="0.44" style="stop-color:rgb(45,230,210);stop-opacity:1"/><stop offset="0.44" style="stop-color:rgb(46,230,210);stop-opacity:1"/><stop offset="0.45" style="stop-color:rgb(47,230,209);stop-opacity:1"/><stop offset="0.45" style="stop-color:rgb(47,230,208);stop-opacity:1"/><stop offset="0.46" style="stop-color:rgb(50,230,206);stop-opacity:1"/><stop offset="0.46" style="stop-color:rgb(50,230,206);stop-opacity:1"/><stop offset="0.47" style="stop-color:rgb(52,230,204);stop-opacity:1"/><stop offset="0.48" style="stop-color:rgb(52,231,204);stop-opacity:1"/><stop offset="0.48" style="stop-color:rgb(54,231,202);stop-opacity:1"/><stop offset="0.49" style="stop-color:rgb(54,231,202);stop-opacity:1"/><stop offset="0.5" style="stop-color:rgb(56,231,199);stop-opacity:1"/><stop offset="0.5" style="stop-color:rgb(57,231,199);stop-opacity:1"/><stop offset="0.51" style="stop-color:rgb(59,231,197);stop-opacity:1"/><stop offset="0.52" style="stop-color:rgb(59,231,197);stop-opacity:1"/><stop offset="0.52" style="stop-color:rgb(60,231,196);stop-opacity:1"/><stop offset="0.52" style="stop-color:rgb(61,232,195);stop-opacity:1"/><stop offset="0.53" style="stop-color:rgb(61,232,195);stop-opacity:1"/><stop offset="0.54" style="stop-color:rgb(63,232,193);stop-opacity:1"/><stop offset="0.54" style="stop-color:rgb(63,232,193);stop-opacity:1"/><stop offset="0.55" style="stop-color:rgb(65,232,191);stop-opacity:1"/><stop offset="0.55" style="stop-color:rgb(66,232,191);stop-opacity:1"/><stop offset="0.56" style="stop-color:rgb(67,232,189);stop-opacity:1"/><stop offset="0.57" style="stop-color:rgb(68,232,188);stop-opacity:1"/><stop offset="0.57" style="stop-color:rgb(70,233,187);stop-opacity:1"/><stop offset="0.58" style="stop-color:rgb(70,233,186);stop-opacity:1"/><stop offset="0.6" style="stop-color:rgb(74,233,182);stop-opacity:1"/><stop offset="0.6" style="stop-color:rgb(75,233,182);stop-opacity:1"/><stop offset="0.61" style="stop-color:rgb(76,233,180);stop-opacity:1"/><stop offset="0.61" style="stop-color:rgb(77,233,180);stop-opacity:1"/><stop offset="0.62" style="stop-color:rgb(77,234,179);stop-opacity:1"/><stop offset="0.62" style="stop-color:rgb(78,234,178);stop-opacity:1"/><stop offset="0.66" style="stop-color:rgb(84,234,172);stop-opacity:1"/><stop offset="0.66" style="stop-color:rgb(85,234,171);stop-opacity:1"/><stop offset="0.66" style="stop-color:rgb(86,235,171);stop-opacity:1"/><stop offset="0.67" style="stop-color:rgb(87,235,170);stop-opacity:1"/><stop offset="0.67" style="stop-color:rgb(87,235,169);stop-opacity:1"/><stop offset="0.68" style="stop-color:rgb(88,235,169);stop-opacity:1"/><stop offset="0.68" style="stop-color:rgb(89,235,168);stop-opacity:1"/><stop offset="0.68" style="stop-color:rgb(89,235,167);stop-opacity:1"/><stop offset="0.7" style="stop-color:rgb(91,235,165);stop-opacity:1"/><stop offset="0.71" style="stop-color:rgb(94,235,163);stop-opacity:1"/><stop offset="0.71" style="stop-color:rgb(94,236,163);stop-opacity:1"/><stop offset="0.72" style="stop-color:rgb(96,236,161);stop-opacity:1"/><stop offset="0.72" style="stop-color:rgb(96,236,161);stop-opacity:1"/><stop offset="0.73" style="stop-color:rgb(98,236,158);stop-opacity:1"/><stop offset="0.74" style="stop-color:rgb(99,236,158);stop-opacity:1"/><stop offset="0.75" style="stop-color:rgb(101,236,156);stop-opacity:1"/><stop offset="0.75" style="stop-color:rgb(101,236,156);stop-opacity:1"/><stop offset="1" style="stop-color:rgb(102,236,154);stop-opacity:1"/></linearGradient>
+        <linearGradient id="_Linear27" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(136.998,-1.84741e-13,1.84741e-13,136.998,0.00178077,66.8587)"><stop offset="0" style="stop-color:rgb(10,226,245);stop-opacity:1"/><stop offset="0.02" style="stop-color:rgb(12,226,243);stop-opacity:1"/><stop offset="0.02" style="stop-color:rgb(12,226,243);stop-opacity:1"/><stop offset="0.04" style="stop-color:rgb(14,226,241);stop-opacity:1"/><stop offset="0.05" style="stop-color:rgb(14,226,241);stop-opacity:1"/><stop offset="0.06" style="stop-color:rgb(16,226,239);stop-opacity:1"/><stop offset="0.08" style="stop-color:rgb(17,226,238);stop-opacity:1"/><stop offset="0.09" style="stop-color:rgb(19,226,236);stop-opacity:1"/><stop offset="0.1" style="stop-color:rgb(19,227,236);stop-opacity:1"/><stop offset="0.14" style="stop-color:rgb(23,227,232);stop-opacity:1"/><stop offset="0.15" style="stop-color:rgb(24,227,232);stop-opacity:1"/><stop offset="0.16" style="stop-color:rgb(24,227,231);stop-opacity:1"/><stop offset="0.17" style="stop-color:rgb(26,227,229);stop-opacity:1"/><stop offset="0.18" style="stop-color:rgb(27,227,229);stop-opacity:1"/><stop offset="0.19" style="stop-color:rgb(27,228,228);stop-opacity:1"/><stop offset="0.21" style="stop-color:rgb(30,228,226);stop-opacity:1"/><stop offset="0.22" style="stop-color:rgb(30,228,225);stop-opacity:1"/><stop offset="0.25" style="stop-color:rgb(33,228,222);stop-opacity:1"/><stop offset="0.26" style="stop-color:rgb(34,228,222);stop-opacity:1"/><stop offset="0.27" style="stop-color:rgb(35,228,220);stop-opacity:1"/><stop offset="0.3" style="stop-color:rgb(37,229,218);stop-opacity:1"/><stop offset="0.3" style="stop-color:rgb(38,229,217);stop-opacity:1"/><stop offset="0.35" style="stop-color:rgb(42,229,213);stop-opacity:1"/><stop offset="0.36" style="stop-color:rgb(43,229,213);stop-opacity:1"/><stop offset="0.38" style="stop-color:rgb(45,230,210);stop-opacity:1"/><stop offset="0.39" style="stop-color:rgb(46,230,210);stop-opacity:1"/><stop offset="0.4" style="stop-color:rgb(47,230,209);stop-opacity:1"/><stop offset="0.41" style="stop-color:rgb(47,230,208);stop-opacity:1"/><stop offset="0.43" style="stop-color:rgb(50,230,206);stop-opacity:1"/><stop offset="0.44" style="stop-color:rgb(50,230,205);stop-opacity:1"/><stop offset="0.45" style="stop-color:rgb(52,230,204);stop-opacity:1"/><stop offset="0.46" style="stop-color:rgb(53,231,203);stop-opacity:1"/><stop offset="0.47" style="stop-color:rgb(53,231,203);stop-opacity:1"/><stop offset="0.52" style="stop-color:rgb(58,231,198);stop-opacity:1"/><stop offset="0.55" style="stop-color:rgb(60,231,196);stop-opacity:1"/><stop offset="0.55" style="stop-color:rgb(61,232,195);stop-opacity:1"/><stop offset="0.56" style="stop-color:rgb(62,232,194);stop-opacity:1"/><stop offset="0.57" style="stop-color:rgb(63,232,194);stop-opacity:1"/><stop offset="0.58" style="stop-color:rgb(63,232,193);stop-opacity:1"/><stop offset="0.59" style="stop-color:rgb(65,232,191);stop-opacity:1"/><stop offset="0.6" style="stop-color:rgb(65,232,191);stop-opacity:1"/><stop offset="0.64" style="stop-color:rgb(69,232,187);stop-opacity:1"/><stop offset="0.65" style="stop-color:rgb(70,233,187);stop-opacity:1"/><stop offset="0.66" style="stop-color:rgb(70,233,186);stop-opacity:1"/><stop offset="0.67" style="stop-color:rgb(72,233,184);stop-opacity:1"/><stop offset="0.68" style="stop-color:rgb(73,233,184);stop-opacity:1"/><stop offset="0.69" style="stop-color:rgb(73,233,183);stop-opacity:1"/><stop offset="0.73" style="stop-color:rgb(77,233,179);stop-opacity:1"/><stop offset="0.75" style="stop-color:rgb(79,234,177);stop-opacity:1"/><stop offset="0.76" style="stop-color:rgb(80,234,177);stop-opacity:1"/><stop offset="0.77" style="stop-color:rgb(81,234,175);stop-opacity:1"/><stop offset="0.8" style="stop-color:rgb(83,234,173);stop-opacity:1"/><stop offset="0.8" style="stop-color:rgb(84,234,172);stop-opacity:1"/><stop offset="0.82" style="stop-color:rgb(86,234,171);stop-opacity:1"/><stop offset="0.83" style="stop-color:rgb(86,235,170);stop-opacity:1"/><stop offset="0.85" style="stop-color:rgb(88,235,168);stop-opacity:1"/><stop offset="0.88" style="stop-color:rgb(91,235,165);stop-opacity:1"/><stop offset="0.9" style="stop-color:rgb(93,235,164);stop-opacity:1"/><stop offset="0.91" style="stop-color:rgb(93,235,163);stop-opacity:1"/><stop offset="0.91" style="stop-color:rgb(94,236,163);stop-opacity:1"/><stop offset="0.93" style="stop-color:rgb(96,236,161);stop-opacity:1"/><stop offset="0.94" style="stop-color:rgb(96,236,161);stop-opacity:1"/><stop offset="0.96" style="stop-color:rgb(98,236,158);stop-opacity:1"/><stop offset="0.98" style="stop-color:rgb(101,236,156);stop-opacity:1"/><stop offset="1" style="stop-color:rgb(102,236,155);stop-opacity:1"/></linearGradient>
+    </defs>
 </svg>
