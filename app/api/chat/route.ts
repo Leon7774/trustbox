@@ -61,7 +61,6 @@ export async function POST(req: Request) {
     (m) => m && typeof m === "object" && m.role && (m.content || m.parts),
   );
 
-
   // Convert UIMessages (parts-based) to ModelMessages (content-based) for streamText
 
   const modelMessages = await convertToModelMessages(messages);
@@ -137,7 +136,7 @@ Do not wait for a prompt. Immediately greet the user (e.g., "Hi, I'm Trustie..."
   // 5. Stream Generation and Database Auto-Save
 
   const result = await retryWithBackoff(async () => {
-    return await streamText({
+    return streamText({
       model: groq("llama-3.3-70b-versatile"),
 
       system: systemPrompt,
@@ -170,18 +169,23 @@ Do not wait for a prompt. Immediately greet the user (e.g., "Hi, I'm Trustie..."
             }
 
             if (assessmentId === 99999) {
-              console.log("Mock assessment 99999 detected. Proceeding to save.");
+              console.log(
+                "Mock assessment 99999 detected. Proceeding to save.",
+              );
             }
 
             // Ensure all messages have ids and consistent format for the client
 
+            // Ensure all messages have ids and consistent format for the client
             const allMessages = [
               ...messages,
-
               ...responseMessages.map((m) => ({
                 ...m,
-
-                id: m.id || Math.random().toString(36).substring(7),
+                // Safely check if 'id' exists on the object, otherwise generate a real UUID
+                id:
+                  "id" in m && typeof m.id === "string"
+                    ? m.id
+                    : crypto.randomUUID(),
               })),
             ]
               .map(normalizeChatMessage)
@@ -195,7 +199,8 @@ Do not wait for a prompt. Immediately greet the user (e.g., "Hi, I'm Trustie..."
               messages.length === 1 &&
               (messages[0].content === "[INIT_ASSESSMENT]" ||
                 messages[0].parts?.some(
-                  (p: any) => p.type === "text" && p.text === "[INIT_ASSESSMENT]",
+                  (p: any) =>
+                    p.type === "text" && p.text === "[INIT_ASSESSMENT]",
                 ))
             ) {
               const firstAssistantMsg = responseMessages.find(
