@@ -11,6 +11,7 @@ import ChatHistorySidebar from "./ChatHistorySidebar";
 import UserNav from "@/components/UserNav";
 import { AppUser } from "@/components/providers/UserProvider";
 import { ChatSession } from "@/db/schema";
+import { logoutAction } from "@/app/actions/authActions";
 
 interface DashboardLayoutClientProps {
   children: ReactNode;
@@ -67,6 +68,7 @@ export default function DashboardLayoutClient({
           <Button
             variant="ghost"
             className="flex-1 rounded-none py-8 hover:bg-destructive/40 gap-2"
+            onClick={() => logoutAction()}
           >
             <LogOut size={16}></LogOut>
             Logout
