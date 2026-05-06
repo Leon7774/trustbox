@@ -20,7 +20,10 @@ export function useAssessmentForm() {
     aiGuidance,
   } = state;
 
-  const activeQuestions = proficiency ? questionsByLevel[proficiency] : [];
+  const MAX_QUESTIONS = 15;
+  const activeQuestions = proficiency
+    ? questionsByLevel[proficiency].slice(0, MAX_QUESTIONS)
+    : [];
 
   const handleAnswer = (questionId: string, score: number) => {
     dispatch({ type: "ANSWER_QUESTION", payload: { questionId, score } });
